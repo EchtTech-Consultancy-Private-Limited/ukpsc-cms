@@ -1,0 +1,256 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .login-box-msg {
+        height: 45px;
+        padding: 0 20px 0px 34px;
+        text-align: left;
+    }
+    body{
+        font-size: 11px;
+    }
+     .login-edit{
+        text-align: inherit;
+        font-size: 14px;
+    }
+    .form-group {
+    margin: 0 auto 1rem auto;
+   }
+   .remeber-edit {
+    display: flex;
+    justify-content: center;
+   }
+   .forget-edit {
+    text-align: center;
+   }
+
+    .atz {
+    margin-top: 7px;
+    }
+    .tmc{
+    margin: 6px 0px 0px 2px;
+    /*border: 1px solid;*/
+    position: absolute;
+    }
+    .hhm{
+    margin: -1px 2px 20px 3px;
+    position: absolute;
+    }
+</style>
+
+<div class="form-background">
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="<?= base_url(); ?>assets/dist/img/cerrs-logo.png" />
+    <!--      <h2><a href="<?= base_url('admin'); ?>"><?= $this->general_settings['application_name']; ?></a></h2>-->
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">   
+
+
+                <div class="row">
+
+                    <div class="column">
+
+                        <p class="login-box-msg left" >  Follow Three Steps For Provisional Certificate</p>
+                        
+
+                        <hr class="style1">
+                        <p class="login-box-msg login-edit"> 
+                            Step 1. Create username/password <br><br>
+                            Step 2. Login and apply for provisional registration   <br><br>
+                            Step 3. Get provisional certificate  
+                        </p> 
+
+                    </div>
+                    <div class="column">
+
+                        <p class="login-box-msg">Sign-in to start your session</p>
+                        <hr class="style1">
+                        <?php $this->load->view('admin/includes/_messages.php') ?>
+
+                        <?php echo form_open(base_url('admin/auth/login'), 'id="xin-form"  class="login-form" '); ?>
+                        <div class="form-group has-feedback col-10">
+                        <!-- <label>Enter Username</label> -->
+                         <script type="text/javascript">
+                        $(function () {
+                            $('input').blur(function () {                     
+                                $(this).val(
+                                    $.trim($(this).val())
+                                );
+                            });
+                        });
+                    </script>
+
+                            <input type="text" name="username" id="name" class="form-control" placeholder="<?= trans('username') ?>" >
+                        </div>
+                        <div class="form-group col-10 atz">
+                            <!-- <label>Enter Password</label> -->
+                            <input type="password" name="password" id="password" class="form-control" placeholder="<?= trans('password') ?>" > 
+                              <input type='checkbox' class="atz" id='toggle' value='0' onchange='togglePassword(this);'>&nbsp;
+                              <span class="tmc"   id='toggleText'>Show Password</span></td>
+                                
+                        </div>
+                        <!-- <script>
+                        $(".toggle-password").click(function() {
+
+                              $(this).toggleClass("fa-eye fa-eye-slash");
+                              var input = $($(this).attr("toggle"));
+                              if (input.attr("type") == "password") {
+                                input.attr("type", "text");
+                              } else {
+                                input.attr("type", "password");
+                              }
+                            });
+                        
+                        </script> -->
+
+                                    <script type="text/javascript">
+
+                                    function togglePassword(el){
+                                    var checked = el.checked;
+
+                                    if(checked){
+                                    document.getElementById("password").type = 'text';
+                                    document.getElementById("toggleText").textContent= "Hide Password";
+                                    }else{
+                                    document.getElementById("password").type = 'password';
+                                    document.getElementById("toggleText").textContent= "Show Password";
+                                    }
+
+                                    }
+                                     
+                                    </script>
+
+                        <div class="form-group has-feedback col-10">
+
+                            <div  name="captcha" id="captcha"  placeholder="<?= trans('password') ?>" ></div>
+                            <div style="margin-top: -40px; float: right;margin-right: 80px;"> <i class="fa fa-refresh" id="captcha_refres" aria-hidden="true"></i></div>
+                            <script type="text/javascript">
+
+                                $("#captcha_refres").on('click',function(){
+                                    createCaptcha();
+                                      document.getElementById("cpatchaTextBox").value = "";
+                                });
+
+                            </script>
+                                            <!-- <label>Enter Captcha</label> -->
+                            <input type="text" name="cpatchaTextBox" id="cpatchaTextBox" class="form-control" placeholder="Enter Captcha" >
+                        </div>
+                        <div class="row remeber-edit">
+                            <div class="col-8">
+                                <div class="checkbox icheck ">
+                                    <label>
+                                      <!--   <input  type="checkbox"> -->
+                                    </label>
+                                    <!-- <span class="hhm"> // trans('remember_me') ?></span> -->
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-3">
+                                <input type="submit" name="submit" id="submit" class="btn btn-primary btn-block btn-flat" value="<?= trans('signin') ?>">
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <?php echo form_close(); ?>
+
+            
+                            <p class="mb-1" style="padding-left: 11px;">
+                            <a href="<?= base_url('admin/auth/forgot_password'); ?>"><span style="font-weight: bold; font-size: 14px;"><?= trans('i_forgot_my_password') ?></span></a>
+                        </p>
+                        <p class="mb-0" style="padding-left: 10px;">
+                            <label >
+                                       If you Don't have account! 
+                                    </label>
+                            <a href="<?= base_url('admin/auth/register'); ?>" class="text-center"><spna style="font-weight: bold; font-size: 14px;">Create New Account!</spna></a>
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /.login-box -->
+</div>
+<script>
+    $(document).ready(function () {
+        createCaptcha();
+
+        $("#xin-form")["submit"](function (d) {
+
+            if ($("#name").val() == "") {
+                alert("Please fill 'Username' field");
+                $("#name").focus();
+                return false;
+            }
+            if ($("#password").val() == "") {
+                alert("Please fill 'Password' field");
+                $("#password").focus();
+                return false;
+            }
+
+            if ($("#cpatchaTextBox").val() != code) {
+                alert("Invalid Captcha. try Again");
+                createCaptcha();
+                document.getElementById("cpatchaTextBox").value = "";
+                $("#cpatchaTextBox").focus();
+                return false;
+            }
+
+            ///Validation For CheckBox
+
+            if (!this.myform.declare.checked) {
+                alert('You must agree to the terms first.');
+                return false;
+            }
+        });
+
+
+    });
+
+//createCaptcha function code//
+    var code;
+    function createCaptcha() {
+        //clear the contents of captcha div first 
+        document.getElementById('captcha').innerHTML = "";
+        var charsArray =
+                "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*";
+        var lengthOtp = 6;
+        var captcha = [];
+        for (var i = 0; i < lengthOtp; i++) {
+            //below code will not allow Repetition of Characters
+            var index = Math.floor(Math.random() * charsArray.length + 1); //get the next character from the array
+            if (captcha.indexOf(charsArray[index]) == -1)
+                captcha.push(charsArray[index]);
+            else
+                i--;
+        }
+        var canv = document.createElement("canvas");
+        canv.id = "captcha";
+        canv.width = 100;
+        canv.height = 50;
+        var ctx = canv.getContext("2d");
+        ctx.font = "22px Times New Roman";
+        ctx.strokeText(captcha.join(""), 0, 30);
+        //storing captcha so that can validate you can save it somewhere else according to your specific requirements
+        code = captcha.join("");
+        document.getElementById("captcha").appendChild(canv); // adds the canvas to the body element
+    }
+
+</script>

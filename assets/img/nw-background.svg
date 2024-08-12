@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="899" viewBox="0 0 1440 899">
+  <defs>
+    <clipPath id="clip-Login_5">
+      <rect width="1440" height="899"/>
+    </clipPath>
+  </defs>
+  <g id="Login_5" data-name="Login – 5" clip-path="url(#clip-Login_5)">
+    <rect width="1440" height="899" fill="#ddd"/>
+    <rect id="BG_Colour" data-name="BG Colour" width="1440" height="948" fill="#fafafa"/>
+    <g id="Group_42967" data-name="Group 42967" opacity="0.4">
+      <path id="Polygon_4" data-name="Polygon 4" d="M447.785,0a27,27,0,0,1,23.477,13.665l139.164,245a27,27,0,0,1,0,26.671l-139.164,245A27,27,0,0,1,447.785,544H170.215a27,27,0,0,1-23.477-13.665l-139.164-245a27,27,0,0,1,0-26.671l139.164-245A27,27,0,0,1,170.215,0Z" transform="translate(-136 -70)" fill="#134e6f" opacity="0.1"/>
+      <g id="Group_42966" data-name="Group 42966" transform="translate(0 -50)">
+        <path id="Polygon_5" data-name="Polygon 5" d="M284.287,0a27,27,0,0,1,23.475,13.662l84.659,149a27,27,0,0,1,0,26.677l-84.659,149A27,27,0,0,1,284.287,352H115.713a27,27,0,0,1-23.475-13.662l-84.659-149a27,27,0,0,1,0-26.677l84.659-149A27,27,0,0,1,115.713,0Z" transform="translate(-136 713)" fill="#134e6f" opacity="0.1"/>
+      </g>
+      <ellipse id="Ellipse_98" data-name="Ellipse 98" cx="415.119" cy="609" rx="415.119" ry="609" transform="matrix(0.799, -0.602, 0.602, 0.799, 662, 756.456)" fill="#134e6f" opacity="0.1"/>
+      <ellipse id="Ellipse_99" data-name="Ellipse 99" cx="415.119" cy="609" rx="415.119" ry="609" transform="matrix(0.656, 0.755, -0.755, 0.656, 1825.276, -897.028)" fill="#134e6f" opacity="0.1"/>
+    </g>
+  </g>
+</svg>

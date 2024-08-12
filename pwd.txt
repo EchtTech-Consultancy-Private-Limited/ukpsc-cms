@@ -1,0 +1,23 @@
+extras
+pages
+mailbox
+tables
+forms
+widgets
+ui
+Languages
+settings
+export
+activity
+invoices
+joins
+users
+-----------------------------------
+SuperAdmin Demo:
+Username: superadmin
+Password: 12345
+
+
+Admin Demo
+Username: admin
+Password: 12345
