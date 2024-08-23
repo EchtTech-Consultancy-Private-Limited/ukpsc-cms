@@ -166,6 +166,8 @@ class Auth extends MY_Controller {
 							'username' => $result['username'],
                             'fullname' => $result['firstname']." ".$result['middlename']." ".$result['lastname'],
 							'admin_role_id' => $result['admin_role_id'],
+							'email' => $result['email'],
+							'mobile_no' => $result['pri_mobile'],
 							'admin_role' => $result['admin_role_title'],
                             'state_id' => $result['state_id'],
                             'district_id' => $result['district_id'],
@@ -349,6 +351,7 @@ class Auth extends MY_Controller {
 
 				$school_registration_result = $this->auth_model->schoolregistrationcheck($this->input->post('school_registration'));
 				$result = $this->auth_model->emailcheck($this->input->post('email'));
+				$mobileDuplicate = $this->auth_model->mobileCheck($this->input->post('pri_mobile'));
 				
 				if ($school_registration_result) {
 
@@ -359,6 +362,11 @@ class Auth extends MY_Controller {
 
 					$this->session->set_flashdata('form_data', $this->input->post());
 					$this->session->set_flashdata('allerrorshow', "Email already registered<br/>ईमेल पहले से ही पंजीकृत है");
+					redirect(base_url('admin/auth/register'));
+				}elseif($mobileDuplicate){
+
+					$this->session->set_flashdata('form_data', $this->input->post());
+					$this->session->set_flashdata('allerrorshow', "Mobile already registered on this school (".$mobileDuplicate.")<br/>मोबाइल नंबर पहले से ही पंजीकृत है");
 					redirect(base_url('admin/auth/register'));
 				}
 				else{
@@ -558,12 +566,13 @@ class Auth extends MY_Controller {
 		}
 
 		public function update_user_info(){
-                  	$adminId = $this->session->userdata('admin_id');
-				if($this->input->post('submit')){
+			$adminId = $this->session->userdata('admin_id');
+
+
+
+			if($this->input->post('submit')){
 				$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]');
 				$this->form_validation->set_rules('confirm_password', 'Password Confirmation', 'trim|required|matches[password]');
-     
-                    
                    
 					$new_password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
 					$mobile_no = $this->input->post('pri_mobile');
@@ -573,14 +582,12 @@ class Auth extends MY_Controller {
 					$this->auth_model->reset_ci_admin($email,$mobile_no, $new_password);
 					$updateRequest = $this->auth_model->reset_ci_admin($email,$mobile_no, $new_password);
 					if($updateRequest){
-							$this->session->set_flashdata('success','New password has been Updated successfully.Please login below with latest Login id and password');
-					        redirect(base_url('admin/auth/login'));
+						$this->session->set_flashdata('success','New password has been Updated successfully.Please login below with latest Login id and password');
+						redirect(base_url('admin/auth/login'));
 					}
 					else{
 						echo "Unable to update info";
 					}
-				
-			
 			}else{
 
 				$data['title'] = 'Update info';
@@ -591,9 +598,6 @@ class Auth extends MY_Controller {
 		        $this->load->view('admin/includes/_footer', $data);
 						// $this->load->view('admin/includes/_footer');
 			}
-
-
-		
 		}
 
 
@@ -816,9 +820,61 @@ class Auth extends MY_Controller {
 			sendEmail($email,$messageE1,$template_id);
 		}
 
-			}  // end class
+		public function sendOTP()
+		{
+			$val = $this->input->post('data');
+			$otptype = $this->input->post('otptype');
+			
+			// Validate the email2
+			if($otptype == 'mail'){
+				
+				if (($val)) {
+					//print_r($val);die;
+					// Generate OTP
+					$otp = rand(100000, 999999);
+					// Save the OTP in session or database (based on your use case)
+					$this->session->set_userdata('otp', $otp);
+					// Send OTP via email (you can send via SMS if you have an SMS gateway)
+					// Message For Email Address 
+					$template_id = "1007187824778437199";
+					$messageE1='Dear Applicant ,<br>';
+					$messageE1.='Kindly reset your password using the following link.'. $otp.'<br>';
+					$messageE1.='Regards,<br>';
+					$messageE1.='UKPSC';
+				// EMAIL AND MESSAGE SEND UDING TEMPLETE
+					sendEmail($val,$messageE1,$template_id);
+					if ($this->email->send()) {
+						echo json_encode(['success' => true, 'message' => 'OTP sent successfully.']);
+					} else {
+						echo json_encode(['success' => false, 'message' => 'Failed to send OTP.']);
+					}
+				} 
+				else {
+					echo json_encode(['success' => false, 'message' => 'Invalid email address.']);
+				}
+			}else{
+				$otp = rand(100000, 999999);
+				$template_id = "1007187824778437199";
+				$messageP1='Dear User, ';
+				$messageP1.='Your One Time Password (OTP) for resetting your password is '.$otp.'. ';
+				$messageP1.='Regards, ';
+				$messageP1.='UKPSC';
+
+				//print_r($messageP1);die;
+				$result = sendSMS($val,$messageP1,$template_id);
+				
+				print_r($result);die;
+				if ($result) {
+					echo json_encode(['success' => true, 'message' => 'OTP sent successfully.']);
+				} else {
+					echo json_encode(['success' => false, 'message' => 'Failed to send OTP.']);
+				}
+			}
+			
+		}
 
 
 
+}  // end class
 
 ?>

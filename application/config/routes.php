@@ -146,13 +146,7 @@ $route['publish_data/(:any)'] = 'admin/Permanent_Data/show_public_data/$1';
 
 $route['admin/Users_upload'] = 'admin/Users_upload';
 
-
-
 $route['admin/consent_letter/cosent_list_data'] = 'admin/consent_letter/cosent_list_data';
-
-
-
-
 
 $route['photo/(:any)'] = "viewphoto/view/$1";
 
@@ -177,3 +171,4 @@ $route['admin/send_invite'] = 'admin/examshedule_schedule/update_check_box';
 // $route['admin/step_1/(:any)'] = "admin/consent_active/consent_add/$1";
 
 // $route['admin/step_2'] = "admin/consent_active/consent_add_1";
+$route['send-otp'] = 'admin/Auth/sendOTP';

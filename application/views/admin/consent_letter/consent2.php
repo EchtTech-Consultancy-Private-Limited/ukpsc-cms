@@ -61,26 +61,26 @@
                                       } ?>" >
                     </div>
                     <div class="form-group">
-                  <label >Mobile No.<br> (मोबाइल नंबर)</label>
+                  <label >Alternate Mobile No.<br> (मोबाइल नंबर)</label>
                     <input type="text" class="form-control" name="super_mobile" maxlength="10" value="<?php if (isset($user['super_mobile'])) {
                                           echo $user['super_mobile'];
                                       } ?>" id="super_mobile" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                     </div>
                 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                   <label for="district">Email (used for communication with UKPSC) ईमेल (यूकेपीएससी के साथ संचार के लिए प्रयुक्त)</label>
-                    <input type="text" class="form-control" value="<?php if (isset($user['super_email'])) {
+                    <input type="text" class="form-control" value="<//?php if (isset($user['super_email'])) {
                                           echo $user['super_email'];
                                       } ?>"  name="super_email" id="super_email"  >
                     </div>
               
                   <div class="form-group">
                     <label for="district">WhatsApp No.<br> (व्हाट्सएप नंबर)</label>
-                    <input type="text" class="form-control" name="super_whatspp" maxlength="10" value="<?php if (isset($user['super_whatspp'])) {
+                    <input type="text" class="form-control" name="super_whatspp" maxlength="10" value="<//?php if (isset($user['super_whatspp'])) {
                                           echo $user['super_whatspp'];
                                       } ?>"  id="super_whatspp"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  >
                     
-                  </div>
+                  </div> -->
                   <div class="form-group" style="margin-bottom: 0 !important;">
                     <a  href="<?= base_url("admin/step2/" ); ?>"  class="btn btn-sec">Back</a>
                       <input type="submit" name="submit" id="submit" class="btn btn-primary next_button" value="Save and Next">
@@ -247,7 +247,7 @@
               }
   
               //Validation For Emailid
-              var femail = $("#super_email").val();
+              /*var femail = $("#super_email").val();
               if (femail == "") {
                   alert("Please enter 'Email Address'\nकृपया 'ईमेल पता' दर्ज करें");
                   $("#super_email").focus();
@@ -269,7 +269,7 @@
                   alert("Please enter 'Whats App No.' with 10 digit number\nकृपया 10 अंकों की संख्या के साथ 'व्हाट्सएप मोबाइल नंबर' दर्ज करें");
                   $('#super_whatspp').focus();
                   return false;
-              }
+              }*/
   
           });
   

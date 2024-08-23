@@ -52,13 +52,14 @@ textarea:focus-visible {
   border: 1px solid #373250 !important;
   box-shadow: none !important;
 }
-input,
-select {
-  font-size: 17px !important;
-  padding: 3px 10px !important;
+input.form-control,
+select.form-control {
+  font-size: 14px !important;
+  padding: 8px 10px !important;
+  height: auto !important;
 }
 .form-group label {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #373250;
   padding: 0;
 }
@@ -231,14 +232,31 @@ select {
   color: #373250;
 }
 .small-box {
-  height: 100%;
+  height: 170px;
   margin-bottom:2rem !important;
 
+}
+.change-credential{
+  font-size: 12px;
+  margin-bottom: -20px;
+  margin-top: 10px;
+  color: #ffffff !important;
+  font-weight: 400 !important;
+  text-decoration: none;
+  border: 1px solid #fff;
+  padding: 3px 6px;
+  border-radius: 3px;
+  transition: 0.2s ease-in-out;
+}
+.change-credential:hover{
+  background: #fff;
+  color: #e5ad06 !important;
 }
 a.small-box-footer{
 	position:absolute !important;
 	bottom: 0px;
     width: 100%;
+    padding: 11px 0 !important;
 }
 .small-box h3,
 .small-box a,

@@ -727,8 +727,8 @@ function sendSMS($mobile, $message, $template_id)
 
     /*API URL*/
     // $url="http://sms.holymarkindia.in/API/WebSMS/Http/v1.0a/index.php";
-    //$url = "http://hmimedia.in/pushsms.php";
-    $url = "";
+    $url = "http://hmimedia.in/pushsms.php";
+    //$url = "";
 
     /* init the resource */
     $ch = curl_init();
@@ -770,8 +770,8 @@ function sendEmail($email, $message, $template_id)
 
 
     /*API URL*/
-   // $url = "http://hmiemail.in/pushemail.php";
-    $url = "";
+    $url = "http://hmiemail.in/pushemail.php";
+   // $url = "";
     /* init the resource */
     $ch = curl_init();
 

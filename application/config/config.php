@@ -931,7 +931,7 @@ $config['global_xss_filtering'] = FALSE;
 
 */
 
-$config['csrf_protection'] = TRUE;
+$config['csrf_protection'] = FALSE;
 
 $config['csrf_token_name'] = 'csrf_test_name';
 

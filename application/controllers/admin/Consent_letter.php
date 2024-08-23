@@ -218,8 +218,8 @@ public function consent_add_1() {
                    'super_name' => $this->input->post('super_name'),
                     'super_design' => $this->input->post('super_design'),
                     'super_mobile' => $this->input->post('super_mobile'),
-                    'super_email' => $this->input->post('super_email'),
-                    'super_whatspp' => $this->input->post('super_whatspp'),
+                    'super_email' => $this->input->post('super_email')??'NULL',
+                    'super_whatspp' => $this->input->post('super_whatspp')??'NULL',
                    
                 ];
                 

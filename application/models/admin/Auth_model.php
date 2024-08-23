@@ -300,7 +300,20 @@ class Auth_model extends CI_Model{
 				return false; // And here false to TRUE
 			}
 	}
-	
+	public function mobileCheck($email){
+
+		$this->db->where('pri_mobile', $email);
+    	$query = $this->db->get('ci_admin');
+    	$count_row = $query->row()->school_name;
+		//print_r($count_row);die;
+		if (!empty($count_row)) {
+		//if count row return any row; that means you have already this email address in the database. so you must set false in this sense.
+				return $count_row; // here I change TRUE to false.
+			} else {
+				// doesn't return any row means database doesn't have this email
+				return false; // And here false to TRUE
+			}
+	}
 	public function schoolregistrationcheck($school_registration_no){
 
 		$this->db->where('school_registration_number', $school_registration_no);
