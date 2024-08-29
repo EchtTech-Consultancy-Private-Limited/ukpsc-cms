@@ -752,7 +752,7 @@ function sendSMS($mobile, $message, $template_id)
         echo 'error:' . curl_error($ch);
     }
     curl_close($ch);
-    echo "Message Sent Successfully  11!";
+    echo "OTP sent successfully.";
 }
 function sendEmail($email, $message, $template_id)
 {

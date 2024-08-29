@@ -196,7 +196,36 @@ class Auth_model extends CI_Model{
 		$this->db->update('ci_admin', $data);
 		return true;
     }
-
+	public function otpUpdate($val, $otptype, $otp_no){
+		//$adminId = $this->session->userdata('admin_id');
+		$result = $this->db->get_where('ci_otp',  array('user_id' => $this->session->userdata('admin_id'),'otp_type'=>$otptype));
+    	
+		if($result->num_rows() > 0){
+			$data = array(
+				'send_to' => $val,
+				'otp_type' => $otptype,
+				'otp_no' => $otp_no,
+			);
+			$this->db->where(array('user_id' => $this->session->userdata('admin_id'),'otp_type'=>$otptype));
+			$results =$this->db->update('ci_otp', $data);
+    	}
+    	else{ 
+			$data = array(
+				'user_id' =>$this->session->userdata('admin_id'),
+				'send_to' => $val,
+				'otp_type' => $otptype,
+				'otp_no' => $otp_no,
+			);
+			$results =$this->db->insert('ci_otp', $data);
+    	}
+		return true;
+		
+	
+   }
+   public function otp_delete_row($id){
+		$this->db->where('user_id', $id);
+		$this->db->delete('ci_otp');
+   }
      public function reset_ci_admin($email,$mobile_no, $new_password){
      	$adminId = $this->session->userdata('admin_id');
 	    $data = array(

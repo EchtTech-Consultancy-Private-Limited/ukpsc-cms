@@ -115,13 +115,48 @@ input#submit {
 .enter-otp-box {
     margin: 0 6px;
 }
-
+#overlay{ 
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height:100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+.is-hide{
+  display:none;
+}
 </style>
 <div class="form-background">
    <div class="login-box">
       <!-- /.login-logo -->
       <div class="card" style="background: #373250; color:#fff;">
          <div class="card-body login-card-body">
+         <div id="overlay">
+            <div class="cv-spinner">
+               <span class="spinner"></span>
+            </div>
+            </div>
             <div class="login-logo mb-4">
                <img src="<?= base_url(); ?>assets/dist/img/ukpsc_logo.png" height="150" /> 
             </div>
@@ -131,7 +166,17 @@ input#submit {
                      Update user Info
                   </p>
                   <hr class="style1" style="border-color:#fff;">
+                  <script type="text/javascript" rel="stylesheet"> 
+                     $('document').ready(function(){
+                        $(".alert").fadeIn(1000).fadeOut(5000);
+                     });
+                  </script> 
                   <?php $this->load->view('admin/includes/_messages.php') ?>
+                  <?php if($this->session->flashdata ('error')) { ?>
+                  <div id="Error_Message" class="alert" style="text-align: center; color:red;">
+                        <?php $errormeassage = $this->session->flashdata('error'); echo $errormeassage; ?>
+                  </div>
+                  <?php  } ?>
                   <?php echo form_open(current_url(), 'class="login-form"  id="xin-form" '); ?>
                   <div class="form-container">
                   <div class="first-child">
@@ -178,8 +223,9 @@ input#submit {
                         </div>
                         <div class="enter-otp-box">
                            <label class="text-white">Enter OTP</label>
-                           <input type="text" name="mail_otp">
+                           <input type="text" name="mail_otp" id="mail_otp">
                         </div>
+                       
                      </div>
                      <div class="form-group col-12 atz otp-cont">
                         <!-- <div class="otp-section">
@@ -193,7 +239,7 @@ input#submit {
                         </div>
                         <div class="enter-otp-box">
                            <label class="text-white">Enter OTP</label>
-                           <input type="text" name="mobile_otp">
+                           <input type="text" name="mobile_otp" id="mobile_otp">
                         </div>
                      </div>
                      <div class="form-group col-12 atz confirm-pass-block">
@@ -227,6 +273,8 @@ input#submit {
 </div>
 <script src="jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script>
    $(document).ready(function () {
    
@@ -294,8 +342,30 @@ input#submit {
    
    
        }
-   
-     
+       // OTP Fill Mail
+       var mail_otp = $("#mail_otp").val();
+         if ($("#mail_otp").val() == "") {
+            alert("Please fill 'Mail OTP' field");
+            $("#mail_otp").focus();
+            return false;
+            }
+            if ($("#mail_otp").val().length < 6) {
+            alert(" 'Mail OTP' must integer 6 number");
+            $("#mail_otp").focus();
+            return false;
+         }
+      // OTP Fill Mobile
+      var mobile_otp = $("#mobile_otp").val();
+         if ($("#mobile_otp").val() == "") {
+            alert("Please fill 'Mobile OTP' field");
+            $("#mobile_otp").focus();
+            return false;
+            }
+            if ($("#mobile_otp").val().length < 6) {
+            alert(" 'Mobile OTP' must integer 6 number");
+            $("#mobile_otp").focus();
+            return false;
+         }
      var fmobileno = $('#pri_mobile').val();
      if (fmobileno == "") {
    
@@ -409,12 +479,12 @@ input#submit {
      
    });
    function sendmailOTP(e){
-        alert(e);
         if(e == 'mail'){
          var value = $('#email').val();
         }else{
          var value = $('#pri_mobile').val();
         }
+        $("#overlay").fadeIn(300);　
          $.ajax({
             url: "<?php echo base_url('send-otp'); ?>",
             type: "POST",
@@ -423,11 +493,17 @@ input#submit {
                data: value,
             },
             success: function(response) {
-               $('#response-message').text(response.message).css('color', response.success ? 'green' : 'red');
+               toastr.success(response);
+               setTimeout(function(){
+                  $("#overlay").fadeOut(300);
+                  },500);
+              // $('#response-message').text(response).css('color', true ? 'green' : 'red');
             },
             error: function(response) {
-               $('#response-message').text('An error occurred. Please try again.').css('color', 'red');
+               toastr.error('An error occurred. Please try again.');
+               //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
             }
+           
          });
      }
 </script>
