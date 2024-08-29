@@ -1,0 +1,351 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+// -----------------------------------------------------------------------------
+// Get Language by ID
+function get_lang_name_by_id($id) {
+    $ci = & get_instance();
+    $ci->db->where('id', $id);
+    return $ci->db->get('ci_language')->row_array()['name'];
+}
+
+// -----------------------------------------------------------------------------
+// Get Language Short Code
+function get_lang_short_code($id) {
+    $ci = & get_instance();
+    $ci->db->where('id', $id);
+    return $ci->db->get('ci_language')->row_array()['short_name'];
+}
+
+// -----------------------------------------------------------------------------
+// Get Language List
+function get_language_list() {
+    $ci = & get_instance();
+    $ci->db->where('status', 1);
+    return $ci->db->get('ci_language')->result_array();
+}
+
+// -----------------------------------------------------------------------------
+// Get country list
+function get_country_list() {
+    $ci = & get_instance();
+    return $ci->db->get('ci_countries')->result_array();
+}
+
+// -----------------------------------------------------------------------------
+// Get country name by ID
+function get_country_name($id) {
+    $ci = & get_instance();
+    return $ci->db->get_where('ci_countries', array('id' => $id))->row_array()['name'];
+}
+
+// -----------------------------------------------------------------------------
+// Get City ID by Name
+function get_country_id($title) {
+    $ci = & get_instance();
+    return $ci->db->get_where('ci_countries', array('slug' => $title))->row_array()['id'];
+}
+
+// -----------------------------------------------------------------------------
+// Get country slug
+function get_country_slug($id) {
+    $ci = & get_instance();
+    return $ci->db->get_where('ci_countries', array('id' => $id))->row_array()['slug'];
+}
+
+// -----------------------------------------------------------------------------
+// Get country's states
+function get_country_states($country_id) {
+    $ci = & get_instance();
+    return $ci->db->select('*')->where('country_id', $country_id)->get('ci_states')->result_array();
+}
+
+// -----------------------------------------------------------------------------
+// Get state's cities
+function get_state_cities($state_id) {
+    $ci = & get_instance();
+    return $ci->db->select('*')->where('state_id', $state_id)->get('ci_cities')->result_array();
+}
+
+// Get state name by ID
+function get_state_name($id) {
+    $ci = & get_instance();
+    return $ci->db->get_where('ci_states', array('id' => $id))->row_array()['name'];
+}
+
+// -----------------------------------------------------------------------------
+// Get city name by ID
+function get_city_name($id) {
+    $ci = & get_instance();
+    if ($id != null or $id != '') {
+        return $ci->db->get_where('ci_cities', array('id' => $id))->row_array()['name'];
+    } else {
+        return false;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Get city ID by title
+function get_city_slug($id) {
+    $ci = & get_instance();
+    return $ci->db->get_where('ci_cities', array('id' => $id))->row_array()['slug'];
+}
+
+/**
+ * Generic function which returns the translation of input label in currently loaded language of user
+ * @param $string
+ * @return mixed
+ */
+function trans($string) {
+    $ci = & get_instance();
+    return $ci->lang->line($string);
+}
+
+// -----------------------------------------------------------------------------
+// update last login details
+function update_last_login($data, $username) {
+    $ci = & get_instance();
+
+    $ci->db->where('username', $username);
+    $ci->db->update('ci_admin', $data);
+}
+
+//function establishment_type_tree($parent_id = 0, $sub_mark = '',
+//         $selected_id = 0) {
+//     $ci = & get_instance();
+//     $condition = "parent_id =" . "'" . $parent_id . "'";
+//     $ci->db->select('*');
+//     $ci->db->from('ci_establishment_type');
+//     $ci->db->where($condition);
+//   $icd = $ci->db->get();
+//    $options = '';
+//    foreach ($icd->result() as $r) {
+//       if ($selected_id == $r->id)
+//           $is_selected = 'selected';
+//       else
+//           $is_selected = '';
+//
+//        echo $options = '<option value="' . $r->id . '" ' . $is_selected . '>' . $sub_mark . $r->name . '</option>';
+//       establishment_type_tree($r->id, $sub_mark . '   ---&nbsp;&nbsp;&nbsp;',
+//               $selected_id);
+//  }
+// }
+
+
+
+
+// get data  
+function getDataHelper($condition='', $table_name = '') {
+    $ci = & get_instance();
+    $ci->db->select('*');
+    $ci->db->from($table_name);
+    $ci->db->where($condition);
+    $icd = $ci->db->get()->result();
+    return $icd;
+}
+
+//function establishment_type_tree($parent_id = 0, $sub_mark = '',$selected_id = 0 ) {
+//    $ci = & get_instance();
+//
+//    $condition = "parent_id = 0";
+//
+//    $table_name = 'ci_establishment_type';
+//    $optData = getDataHelper($condition, $table_name);
+//    $optionsHtml = '';
+//    /*print_r($optData);
+//    die();*/
+//    foreach ($optData as $options) {
+//        $optionsHtml .= '<optgroup label="' . $options->name . '">';
+//        $condition2 = "parent_id = ".$options->id;
+//        $optionData2 = getDataHelper($condition2, $table_name);
+//        foreach ($optionData2 as $option) {
+//            if($selected_id==$option->id )
+//                $is_selected='selected';
+//            else 
+//                $is_selected='';
+//            $optionsHtml .= '<option value="' . $option->id . '" '.$is_selected.'>' . $sub_mark . $option->name . '</option>';
+//        }
+//        $optionsHtml .= '</optgroup>';
+//    }
+//    echo $optionsHtml;
+//    
+//}
+
+function establishment_type_tree($parent_id = 0, $sub_mark = '',
+        $selected_id = 0) {
+    $ci = & get_instance();
+    $condition = "parent_id =" . "'" . $parent_id . "'";
+    $ci->db->select('*');
+    $ci->db->from('ci_establishment_type');
+    $ci->db->where($condition);
+    $icd = $ci->db->get();
+    $options = '';
+    foreach ($icd->result() as $r) {
+        if ($selected_id == $r->id)
+            $is_selected = 'selected';
+        else
+            $is_selected = '';
+
+        echo $options = '<option value="' . $r->id . '" ' . $is_selected . '>' . $sub_mark . $r->name . '</option>';
+        establishment_type_tree($r->id, $sub_mark . '   ---&nbsp;&nbsp;&nbsp;',
+                $selected_id);
+    }
+}
+
+function service_type_tree($parent_id = 0, $sub_mark = '', $selected_id = 0) {
+    $ci = & get_instance();
+    $condition = "parent_id =" . "'" . $parent_id . "'";
+    $ci->db->select('*');
+    $ci->db->from('ci_service_type');
+    $ci->db->where($condition);
+    $icd = $ci->db->get();
+    $options = '';
+    foreach ($icd->result() as $r) {
+        if ($selected_id == $r->id)
+            $is_selected = 'selected';
+        else
+            $is_selected = '';
+
+        echo $options = '<option value="' . $r->id . '" ' . $is_selected . '>' . $sub_mark . $r->name . '</option>';
+        service_type_tree($r->id, $sub_mark . '   ---&nbsp;&nbsp;&nbsp;',
+                $selected_id);
+    }
+}
+
+function get_ownership_level1() {
+    $ci = & get_instance();
+    return $ci->db->get_where(' ci_ownership_type', array('parent_id' => 0))->result_array();
+}
+
+function get_clinical_establishment1($p_id) {
+    $ci = & get_instance();
+    $q = $ci->db->get_where(' ci_establishment_type',
+                    array('parent_id' => $p_id))->result_array();
+
+    $ci->db->select('t1.id, t1.name, t1.bedapplicable, (select count(*) from ci_establishment_type t2 WHERE t2.`parent_id`=t1.id) as child_count');
+    $q = $ci->db->get_where(' ci_establishment_type t1',
+                    array('t1.parent_id' => $p_id))->result_array();
+
+    return $q;
+}
+
+function get_medical_degree_tree($p_id) {
+    $ci = & get_instance();
+    return $q = $ci->db->get_where('ci_medical_degree',
+                    array('parent_id' => $p_id))->result_array();
+}
+
+function get_medical_degree_by_id($id) {
+    $ci = & get_instance();
+    return $ci->db->get_where('ci_medical_degree', array('id' => $id))->row_array()['name'];
+}
+
+function get_clinical_establishment_child($parent_id, $nole_address,
+        $clinical_establishment = array()) {
+    $ci = & get_instance();
+    $condition = "parent_id =" . "'" . $parent_id . "'";
+    $ci->db->select('t1.id, t1.name, t1.bedapplicable,  (select count(*) from ci_establishment_type t2 WHERE t2.`parent_id`=t1.id) as child_count');
+    $ci->db->from('ci_establishment_type t1');
+    $ci->db->where($condition);
+    $icd = $ci->db->get();
+    $childCount = $icd->num_rows();
+    if ($icd->num_rows() > 0) {
+        $i = 1;
+        $new_nole_address = '';
+        foreach ($icd->result() as $r) {
+            if (in_array($r->id, $clinical_establishment))
+                $is_checked = 'checked';
+            else
+                $is_checked = '';
+            if ($i == 1) {
+                echo '<ul>';
+            }
+            $new_nole_address = $nole_address . "_" . $r->id;
+            echo '<li>';
+            if ($r->child_count <= 0)
+                echo '<input type="checkbox" class="selectedEstablishment" id="checked_' . $r->id . '" name="clinical_establishment[]" data-nole_address="' . $new_nole_address . '"' . $is_checked . ' value="' . $r->id . '"/>';
+            echo $r->name;
+            if ($r->bedapplicable == 'yes') {
+                                            echo '<input type= "text" id="txtfee_' . $r->id . '" maxlength="4" style="    max-width: 30px!important;" > ';
+                                        }
+            
+            get_clinical_establishment_child($r->id, $new_nole_address,
+                    $clinical_establishment);
+            echo '</li>';
+            if ($i == $childCount) {
+                echo '</ul>';
+            }
+            $i++;
+        }
+    }
+}
+
+function get_clinical_establishment1_by_ids($ids) {
+    $ci = & get_instance();
+    $ids = explode(",", $ids);
+    $q = $ci->db->select('GROUP_CONCAT( `name` SEPARATOR ",   ") as establishment_name')->where_in('id',
+                    $ids)->get('ci_establishment_type')->result_array();
+    //echo $ci->db->last_query();
+    return $q;
+}
+
+function get_ownership_name_by_id($id) {
+
+    $ci = & get_instance();
+    if ($id != null or $id != '') {
+        $a = $ci->db->get_where('ci_ownership_type', array('id' => $id))->row_array()['name'];
+
+        return $a;
+    } else {
+        return false;
+    }
+}
+
+function urlencrypt($string) {
+    $output = false;
+    $r = rand(10, 100);
+    $string = $string . $r;
+
+    // hash
+    $key = hash('sha256', SECRET_KEY);
+    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+    $iv = substr(hash('sha256', SECRET_IV), 0, 16);
+    //do the encyption given text/string/number
+    $output = openssl_encrypt($string, ENCRYPT_METHOD, $key, 0, $iv);
+    $output = base64_encode($output);
+    return $output;
+}
+
+function urldecrypt($string) {
+    $output = false;
+
+    // hash
+    $key = hash('sha256', SECRET_KEY);
+    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+    $iv = substr(hash('sha256', SECRET_IV), 0, 16);
+    //decrypt the given text/string/number
+    $output = openssl_decrypt(base64_decode(substr($string, 0, -2)),
+            ENCRYPT_METHOD, $key, 0, $iv);
+    $output = substr($output, 0, -2);
+    return $output;
+}
+
+// Generate a Random Number for unique registration 
+
+function get_new_certifecate_permanent($state_id = false, $district_id = false) {
+    
+
+
+    $str = 'Perm'.now();
+    // print_r($str);  die;
+    return $str;
+}
+function get_new_certifecate_provisional($state_id = false, $district_id = false) {
+    
+    $str = 'PROV/'.$state_id.'/'.$district_id.'/'.now();
+    // print_r($str);  die;
+    return $str;
+}
+
