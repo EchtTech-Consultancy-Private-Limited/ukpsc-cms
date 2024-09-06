@@ -331,13 +331,14 @@ class Master extends MY_Controller
         $data['total'] = ($a['sum(number_of_can)']);
 
         $data['info'] = $this->Exam_model->get_all_candidate_data();
-    
+    //print_r($data);die; 
         $this->load->view('admin/exam/candidate_app_list', $data);
     }
 
     public function candidate_add()
     {
 
+      //  print_r('H');die;
         if ($this->input->post()) {
 
             $state = $this->input->post('state');
@@ -715,8 +716,6 @@ class Master extends MY_Controller
             $result = $this->Exam_model->add_invitation($data);
         }
 
-
-
             $this->session->set_flashdata('success', 'Create exam schedule  has been added successfully(परीक्षा कार्यक्रम बनाएं सफलतापूर्वक जोड़ दिया गया है)');
 
             redirect(base_url('admin/master/invt_list'), 'refresh');
@@ -724,13 +723,10 @@ class Master extends MY_Controller
 
             $data['subject'] = $this->Master_model->get_subject();
 
-
             $data['exam'] = $this->Master_model->get_exam();
             // echo '<pre>'; print_r($data['subject']); die();
             $this->load->view('admin/includes/_header');
-
             $this->load->view('admin/exam/invitation_add', $data);
-
             $this->load->view('admin/includes/_footer');
         }
     }
@@ -768,33 +764,43 @@ class Master extends MY_Controller
     public function addsubjectforexam()
     {
         // $this->rbac->check_operation_access();
+                if ($this->input->post()) {
 
-        if ($this->input->post()) {
-            $data = [
-                'exam_id' => ucfirst($this->input->post('exam_id')),
-                'sub_name' => ucfirst($this->input->post('sub_name')),
-                'sub_name_hindi' => ucfirst($this->input->post('sub_name_hindi')),
-                'sub_code' => ucfirst($this->input->post('sub_code')),
-                'created_at' => date('Y-m-d h:m:s'),
-                'status' => 1,
-                'created_by' => $this->session->userdata('admin_id') != '' ? $this->session->userdata('admin_id') : 0,
-            ];
-           
+                    $duplicatecheckName = $this->master_model->checkExamName($this->input->post('sub_name'),$this->input->post('exam_id'));
+                    $duplicatecheckCode = $this->master_model->checkExamCode($this->input->post('sub_code'),$this->input->post('exam_id'));
+                   // print_r($duplicatecheck);die;
+				    if($duplicatecheckName) {
+                        $this->session->set_flashdata('form_data', $this->input->post());
+                        $this->session->set_flashdata('allerrorshow', "Subject name already exit!");
+                        redirect(base_url('admin/master/addSubjectNew/' . urlencrypt($this->input->post('exam_id'))));
+				    }elseif($duplicatecheckCode) {
+                        $this->session->set_flashdata('form_data', $this->input->post());
+                        $this->session->set_flashdata('allerrorshow', "Subject Code already exit!");
+                        redirect(base_url('admin/master/addSubjectNew/' . urlencrypt($this->input->post('exam_id'))));
+				    }
+                    else{
+                        $data = [
+                            'exam_id' => ucfirst($this->input->post('exam_id')),
+                            'sub_name' => ucfirst($this->input->post('sub_name')),
+                            'sub_name_hindi' => ucfirst($this->input->post('sub_name_hindi')),
+                            'sub_code' => ucfirst($this->input->post('sub_code')),
+                            'created_at' => date('Y-m-d h:m:s'),
+                            'status' => 1,
+                            'created_by' => $this->session->userdata('admin_id') != '' ? $this->session->userdata('admin_id') : 0,
+                        ];
+                        $data = $this->security->xss_clean($data);
+                        $subject_id = $this->input->post('subject_id');
+                        if ($subject_id) {
+                            $result = $this->master_model->edit_subjectNew($data, $subject_id);
+                        } else {
+                            $result = $this->master_model->add_subjectNew($data);
+                        }
 
-            $data = $this->security->xss_clean($data);
-
-            $subject_id = $this->input->post('subject_id');
-
-            if ($subject_id) {
-                $result = $this->master_model->edit_subjectNew($data, $subject_id);
-            } else {
-                $result = $this->master_model->add_subjectNew($data);
-            }
-
-            $this->session->set_flashdata('success', 'Subject has been added successfully (विषय सफलतापूर्वक जोड़ दिया गया है)');
-            redirect(base_url('admin/master/view_all_subjectNew/' . urlencrypt($this->input->post('exam_id'))));
+                        $this->session->set_flashdata('success', 'Subject has been added successfully (विषय सफलतापूर्वक जोड़ दिया गया है)');
+                        redirect(base_url('admin/master/view_all_subjectNew/' . urlencrypt($this->input->post('exam_id'))));
+                    }
+                }
         }
-    }
     public function edit_subject_new($sub_id, $exam_id)
     {
         $subject_id = urldecrypt($sub_id);

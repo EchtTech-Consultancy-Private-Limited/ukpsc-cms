@@ -68,9 +68,9 @@ class Consent_active extends MY_Controller
 
     function consent_recieved_data()
     {
-        $data[
-            "info"
-        ] = $this->Certificate_model->getSentConsentFromExamController();
+        
+        $data["info"] = $this->Certificate_model->getSentConsentFromExamController();
+        //print_r($data["info"]);die;
         $this->load->view("admin/consent_active/consent_list_recieved", $data);
         // $this->load->view("admin/consent_active/consent_list_recieved_23-03-2023", $data);
     }

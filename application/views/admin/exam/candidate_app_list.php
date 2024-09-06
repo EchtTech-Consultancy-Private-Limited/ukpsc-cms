@@ -3,53 +3,21 @@
 
 
 <div class="datalist table-responsive ">
-
-
-
    <table id="na_datatable" class="table table-bordered table-hover " style="overflow-x: auto; border-collapse: collapse !important;">
-
-
-
       <thead>
-
-
-
          <tr>
-
-
-
             <th width="50">S.No.</th>
-
-
-
             <th>Exam Name</th>
             <th>Start Date</th>
             <th>End Date</th>
-
             <th width="120"><?= trans('action') ?></th>
-
-
-
          </tr>
-
-
-
       </thead>
-
-
-
       <tbody>
-
-
-
          <?php         
-
             if(!empty($info)){   
 
                $i = 1;
-
-             
-
                foreach ($info as $row):
 
                   $admin_role_id = $this->session->userdata('admin_role_id');
@@ -123,11 +91,12 @@
                      <i class="fa fa-eye"></i>
 
                   </a>
-
-                  <a href="<?= base_url("admin/master/candidate_edit/" . urlencrypt($row['id'])); ?>" title="Edit"  class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>
-
-                  </a>
-
+                     <?php if($row['letter_issue'] == 0){ ?>
+                        <a href="<?= base_url("admin/master/candidate_edit/" . urlencrypt($row['id'])); ?>" title="Edit"  class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>
+                        </a>
+                     <?php }else{ ?>
+                        <a title="letter issued" class="btn btn-warning btn-xs"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                     <?php } ?>
                   <a href="<?= base_url("admin/master/candiate_del/" . urlencrypt($row['id'])); ?>" onclick="return confirm ('Are You Sure?\nक्या आपको यकीन है?')" title="Delete" class="btn btn-danger btn-xs">
 
 

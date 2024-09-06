@@ -5,13 +5,25 @@ if (!defined('BASEPATH'))
 
 // -----------------------------------------------------------------------------
 // Get Language by ID
+function get_consentStatus($id)
+{
+    $ci = &get_instance();
+    $ci->db->where('ref_id', $id);
+    return $ci->db->get('ci_exam_according_to_school')->row_array()['superuserStatus'];
+}
+function get_DisApproveRemark($id)
+{
+    $ci = &get_instance();
+    $ci->db->where('ref_id', $id);
+    return $ci->db->get('ci_exam_according_to_school')->row_array()['remark_by_govt'];
+}
+// Get Language by ID
 function get_lang_name_by_id($id)
 {
     $ci = &get_instance();
     $ci->db->where('id', $id);
     return $ci->db->get('ci_language')->row_array()['name'];
 }
-
 // -----------------------------------------------------------------------------
 // Get Language Short Code
 function get_lang_short_code($id)

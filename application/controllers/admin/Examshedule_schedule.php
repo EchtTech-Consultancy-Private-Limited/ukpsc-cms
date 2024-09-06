@@ -467,6 +467,7 @@ class Examshedule_schedule extends MY_Controller {
 
 
     public function date_sheet_update() {
+       
         if ($this->input->post()) {
 
             $sub_name = $this->input->post('sub_name') ? implode(',', $this->input->post('sub_name')) : "";
@@ -482,6 +483,7 @@ class Examshedule_schedule extends MY_Controller {
                 'created_by' => $this->session->userdata('admin_id'),
                 'created_at' => date('d-m-Y : h:m:s'),
                 'created_by' => $this->session->userdata('admin_id'),
+                //'letter_issue' => 1,
             );
             $result = $this->Exam_model->update_invitation($data,$user_id);
 
@@ -1704,6 +1706,7 @@ class Examshedule_schedule extends MY_Controller {
         $this->load->view('admin/exam/create_letter_list', $data);
     }
      public function create_invt_add() {
+       
         if ($this->input->post()) {
 
             $sub_name = $this->input->post('sub_name') ? implode(',', $this->input->post('sub_name')) : "";
@@ -1720,9 +1723,10 @@ class Examshedule_schedule extends MY_Controller {
                 'created_at' => date('d-m-Y : h:m:s'),
                 'created_by' => $this->session->userdata('admin_id'),
                 'create_letter_status' => 1,
+                //'letter_issue' => 1,
             );
             $result = $this->Exam_model->update_invitation($data,$user_id);
-
+            
             $this->session->set_flashdata('success', ' Add successfully!(सफलतापूर्वक जोड़ें!)');
 
             redirect(base_url('admin/examshedule_schedule/create_letter'), 'refresh');

@@ -25,10 +25,14 @@
                 </div>
 
             </div>
-
+            <script>
+               
+            </script>
             <div class="card-body">
 
-
+                <div id="Error_Message" style="text-align: center; color:red;">
+                     <?php $errormeassage = $this->session->flashdata('allerrorshow'); echo $errormeassage; ?>
+                </div>
 
                 <?php echo validation_errors(); ?>
 
@@ -176,17 +180,9 @@
 
                     </div>
 
-
-
                 </div>
 
                 <div class="row">
-
-                    
-
-
-
-                    
 
                 </div>
 
@@ -205,24 +201,10 @@
 
 
 <script>
-
-
-
     $("#country").addClass('active');
-
-
-
     $(document).ready(function () {
-
-
-
         $("#xin-form")["submit"](function (d) {
-
-
-
             if ($("#sub_name").val() === "") {
-
-
 
                 alert("Please fill 'Subject English Name'\nकृपया 'विषय अंग्रेजी नाम' भरें");
 
@@ -230,24 +212,15 @@
 
                 return false;
 
-
-
             }
 
-
-
             if ($("#sub_name_hindi").val() === "") {
-
-
 
                 alert("Please fill 'Subject Name Hindi'\nकृपया 'विषय का नाम हिंदी' भरें");
 
                 $("#sub_name_hindi").focus();
 
                 return false;
-
-
-
             }
 
 
@@ -262,30 +235,25 @@
 
                 return false;
 
-
-
             }
 
         });
 
-
-
         $("#sub_name").focusout(function () {
-
-
 
             var text = $("#sub_name").val() + '-';
 
             $("#sub_code").val(text);
 
-
-
         });
-
-
 
     });
 
-
+    $("#Error_Message").show().delay(5000).queue(function(n) {
+            sessionStorage.clear();
+           $(this).hide();
+           
+           n();
+       });
 
 </script>

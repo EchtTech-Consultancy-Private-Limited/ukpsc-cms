@@ -67,7 +67,41 @@ class Super_user extends MY_Controller {
         return  $status;
         die();
     }
+    public function superUserStatusDisApprove(){
+       // print_r(explode(',',$_GET['ess']));die;
+        $examId = explode(',',$_GET['ess'])[0];
+        $schoolId = explode(',',$_GET['ess'])[1];
+        $status = explode(',',$_GET['ess'])[2];
+        //print_r($_GET['description']);die;
+          $data = array(
+            'superuserStatus' => $status,
+            'remark_by_govt' =>$_GET['description'],
 
+        );
+        $status = $this->db->where('ref_id', $examId)
+                   ->where('school_id', $schoolId)
+                   ->where('ci_exam_according_to_school.invt_recieved', 1)
+                   ->update('ci_exam_according_to_school', $data);
+        //print_r($status);die;
+        if($status ==true){
+            $response = array(
+                'status' => 'success',
+                'message' => "<h3>Status change successfully.</h3>"
+            );
+        }else{
+        
+            $response = array(
+                'status' => 'error',
+                'message' => "<h3>Status change successfully.</h3>"
+            );
+        }
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+        //echo $status;
+        //return  $status;
+        //die();
+    }
 
     		public function superUserChangePassword(){
 
