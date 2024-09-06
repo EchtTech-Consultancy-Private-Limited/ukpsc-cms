@@ -70,12 +70,30 @@ class Exam_model extends CI_Model {
     }
     
     public function update_invitation($data,$user_id) {
-    
+        //print_r($data);die;
         $this->db->where('id', $user_id);
         $this->db->update('ci_exam_invitation', $data);
+
+        $this->db->select('exam_name');
+        $this->db->from('ci_exam_invitation');
+        $this->db->where('id', $user_id);
+        $query = $this->db->get();
+        //print_r($query->result_array()[0]['exam_name']);die;
+        if ($query->num_rows() > 0) {
+            $data = array(
+                'letter_issue' => 1
+            );
+            $this->db->where('exam_name', $query->result_array()[0]['exam_name']);
+            $this->db->update('ci_candidate_app', $data);
+        }
         return true;
     }
-
+    public function letterIssuedStatus($data,$user_id) {
+        //print_r($data);die;
+        $this->db->where('id', $user_id);
+        $this->db->update('ci_candidate_app', $data);
+        return true;
+    }
   public function add_application_cand($data) {
 
         $this->db->insert('ci_candidate_app', $data);

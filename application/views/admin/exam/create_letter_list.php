@@ -37,13 +37,13 @@
           
 
          <?php
-
          
+        // print_r($info[0]['exam_name']);die;
 
             $i = 1;
 
             foreach ($info as $row):
-
+               
 
             $admin_role_id = $this->session->userdata('admin_role_id');
 

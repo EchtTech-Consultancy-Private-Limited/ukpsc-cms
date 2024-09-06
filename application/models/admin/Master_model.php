@@ -689,7 +689,28 @@ public function get_diseases_by_id($id) {
         return true;
 
     }
-
+    public function checkExamName($sub_name,$examID){
+		$this->db->where('exam_id',$examID);
+		$this->db->where('sub_name', $sub_name);
+    	$query = $this->db->get('ci_subject');
+    	$count_row = $query->row()->sub_name;
+		if (!empty($count_row)) {
+				return $count_row; // here I change TRUE to false.
+			} else {
+				return false; // And here false to TRUE
+			}
+	}
+    public function checkExamCode($sub_code,$examID){
+		$this->db->where('exam_id',$examID);
+		$this->db->where('sub_code', $sub_code);
+    	$query = $this->db->get('ci_subject');
+    	$count_row = $query->row()->sub_name;
+		if (!empty($count_row)) {
+				return $count_row; // here I change TRUE to false.
+			} else {
+				return false; // And here false to TRUE
+			}
+	}
 }
 
 

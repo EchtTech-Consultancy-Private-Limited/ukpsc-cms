@@ -22,6 +22,8 @@
          <th>Subject Line of Letter</th>
          <th> Start Date of exam</th>
          <th>End Date of exam</th>
+         <th>Status</th>
+         <th>Remark</th>
          <th width="120" ><?= trans('action') ?></th>
       </tr>
    </thead>
@@ -51,23 +53,26 @@
             <?= date("d-m-Y", strtotime($row['startdate']));?>
          </td>
          <td>
-            <?= date("d-m-Y", strtotime($row['enddate']));?>
+            <?php if($row['enddate'] >=date('Y-m-d')){   ?>
+               <?= date("d-m-Y", strtotime($row['enddate']));?>
+            <?php }else { ?>
+                Date Expired
+            <?php } ?>
          </td>
+         <td><?php if(get_consentStatus($row['ref_id']) ==1){ echo '<span style="color:green">Approved</span>'; }elseif(get_consentStatus($row['ref_id']) == 2){ echo '<span style="color:red">Dis-Approved</span>'; }else{ echo '<span style="color:#cdcd04">Pending</span>'; } ?></td>
+         <td style="text-align:center;"><?= get_DisApproveRemark($row['ref_id']) ?></td>
          <td style="text-align:center;">
          <?php  if ($admin_role_id == 6 )  { ?>
            <!-- <a href="<?php //echo base_url("admin/examshedule_schedule/invitation_reply/" . urlencrypt($row['ref_id'])); ?>" title="Reply"   class="btn btn-success btn-xs reply-btn"> -->
            <!-- <a href="<?= base_url("admin/examshedule_schedule/invitation_reply/" . urlencrypt($row['id'])); ?>" title="Reply"   class="btn btn-success btn-xs reply-btn"> -->
            <?php
            
-               if($row['consents_signstamp_status'] == 1){
-               ?>
-           <a class="d-none" href="<?= base_url("admin/examshedule_schedule/invitation_reply/" . urlencrypt($row['ref_id'])); ?>" title="Reply"   class="btn btn-success">
-            <i class="fa fa-reply"></i>
-           </a>
-           <button type="button" class="btn btn-sec" disabled>Applied</button>
-           <?php
-               }   
-            ?>
+            if($row['consents_signstamp_status'] == 1){ ?>
+               <a class="d-none" href="<?= base_url("admin/examshedule_schedule/invitation_reply/" . urlencrypt($row['ref_id'])); ?>" title="Reply"   class="btn btn-success">
+                     <i class="fa fa-reply"></i>
+               </a>
+               <button type="button" class="btn btn-sec" disabled>Applied</button>
+           <?php  } ?>
            
             <?php //echo '<pre>'; print_r($row['ref_id']); exit; ?>
             <?php
