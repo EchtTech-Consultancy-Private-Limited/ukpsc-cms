@@ -146,6 +146,10 @@ input#submit {
 .is-hide{
   display:none;
 }
+#toast-container h3 {
+   font-size: 16px;
+   height: 12px;
+}
 </style>
 <div class="form-background">
    <div class="login-box">
@@ -207,7 +211,7 @@ input#submit {
                         });
                         
                      </script>
-                     <label class="text-white">Password (पासवर्ड)</label>
+                     <label class="text-white">New Password (पासवर्ड)</label>
                      <input type="password" name="password" id="password" class="form-control" placeholder="">
                   </div>
                      
@@ -225,7 +229,9 @@ input#submit {
                            <label class="text-white">Enter OTP</label>
                            <input type="text" name="mail_otp" id="mail_otp">
                         </div>
-                       
+                        <div class="otp-button">
+                           <button type="button" onclick="mailUpdate()" class="btn-signin">Update</button>
+                        </div>
                      </div>
                      <div class="form-group col-12 atz otp-cont">
                         <!-- <div class="otp-section">
@@ -241,19 +247,27 @@ input#submit {
                            <label class="text-white">Enter OTP</label>
                            <input type="text" name="mobile_otp" id="mobile_otp">
                         </div>
+                        <div class="otp-button">
+                           <button type="button" onclick="mobileUpdate()" class="btn-signin">Update</button>
+                        </div>
                      </div>
-                     <div class="form-group col-12 atz confirm-pass-block">
-                     <label class="text-white">Confirm Password (पासवर्ड की पुष्टि कीजिये)</label>
-                     <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="">
+                     <div class="form-group col-12 atz confirm-pass-block otp-cont">
+                        <div class="w-100">
+                           <label class="text-white">Confirm New Password (पासवर्ड की पुष्टि कीजिये)</label>
+                           <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="">
+                        </div>
+                        <div class="otp-button ml-2">
+                           <button type="button" onclick="passwordUpdate()" class="btn-signin">Update</button>
+                        </div>
                   </div>
                   </div>
                      </div>
                  
-                  <div class="col-2" style="margin: auto;">
+                  <!-- <div class="col-2" style="margin: auto;">
                      <label class="text-white">&nbsp;</label>
                      <input type="submit" name="submit" id="submit" class="btn btn-signin btn-block btn-flat"
-                        value="<?= trans('create') ?> (पासवर्ड बनाएं)">
-                  </div>
+                        value="<//?= trans('create') ?> (पासवर्ड बनाएं)">
+                  </div> -->
                   <div class="row">
                      <div class="col-12">
                         <div class="checkbox icheck ">
@@ -289,96 +303,96 @@ input#submit {
      });
    
    
-     $("#xin-form")["submit"](function () {
+    // $("#xin-form")["submit"](function () {
    
-       var password = $("#password").val();
+      //  var password = $("#password").val();
    
-       if ($("#password").val() == "") {
+      //  if ($("#password").val() == "") {
    
-         alert("Please fill 'Password' field");
+      //    alert("Please fill 'Password' field");
    
-         $("#password").focus();
+      //    $("#password").focus();
    
-         return false;
+      //    return false;
    
-       }
+      //  }
    
-       if ($("#password").val().length < 8) {
+      //  if ($("#password").val().length < 8) {
    
-         alert(" 'Password' must contain 8 character");
+      //    alert(" 'Password' must contain 8 character");
    
-         $("#password").focus();
+      //    $("#password").focus();
    
-         return false;
+      //    return false;
    
-       }
+      //  }
    
-       var password_confirm = $("#confirm_password").val();
+      //  var password_confirm = $("#confirm_password").val();
    
-       // alert(password_confirm)
+      //  // alert(password_confirm)
    
-       if ($("#confirm_password").val() == "") {
+      //  if ($("#confirm_password").val() == "") {
    
-         alert("Please fill 'Confirm Password' field");
+      //    alert("Please fill 'Confirm Password' field");
    
-         $("#confirm_password").focus();
+      //    $("#confirm_password").focus();
    
-         return false;
+      //    return false;
    
-       }
-   
-   
-   
-       if (password != password_confirm) {
+      //  }
    
    
    
-         alert('Confirm Password Does Not Match!');
-   
-         $("#confirm_password").focus();
-   
-         return false;
+      //  if (password != password_confirm) {
    
    
    
-       }
+      //    alert('Confirm Password Does Not Match!');
+   
+      //    $("#confirm_password").focus();
+   
+      //    return false;
+   
+   
+   
+      // }
        // OTP Fill Mail
-       var mail_otp = $("#mail_otp").val();
-         if ($("#mail_otp").val() == "") {
-            alert("Please fill 'Mail OTP' field");
-            $("#mail_otp").focus();
-            return false;
-            }
-            if ($("#mail_otp").val().length < 6) {
-            alert(" 'Mail OTP' must integer 6 number");
-            $("#mail_otp").focus();
-            return false;
-         }
+      //  var mail_otp = $("#mail_otp").val();
+      //    if ($("#mail_otp").val() == "") {
+      //       alert("Please fill 'Mail OTP' field");
+      //       $("#mail_otp").focus();
+      //       return false;
+      //       }
+      //       if ($("#mail_otp").val().length < 6) {
+      //       alert(" 'Mail OTP' must integer 6 number");
+      //       $("#mail_otp").focus();
+      //       return false;
+      //    }
       // OTP Fill Mobile
-      var mobile_otp = $("#mobile_otp").val();
-         if ($("#mobile_otp").val() == "") {
-            alert("Please fill 'Mobile OTP' field");
-            $("#mobile_otp").focus();
-            return false;
-            }
-            if ($("#mobile_otp").val().length < 6) {
-            alert(" 'Mobile OTP' must integer 6 number");
-            $("#mobile_otp").focus();
-            return false;
-         }
-     var fmobileno = $('#pri_mobile').val();
-     if (fmobileno == "") {
+   //    var mobile_otp = $("#mobile_otp").val();
+   //       if ($("#mobile_otp").val() == "") {
+   //          alert("Please fill 'Mobile OTP' field");
+   //          $("#mobile_otp").focus();
+   //          return false;
+   //          }
+   //          if ($("#mobile_otp").val().length < 6) {
+   //          alert(" 'Mobile OTP' must integer 6 number");
+   //          $("#mobile_otp").focus();
+   //          return false;
+   //       }
+   //   var fmobileno = $('#pri_mobile').val();
+   //   if (fmobileno == "") {
    
-         alert("Please enter 'Mobile No.'\nकृपया 'मोबाइल नंबर' दर्ज करें।");
-         $('#pri_mobile').focus();
-         return false;
-     } else if (fmobileno.length != 10) {
+   //       alert("Please enter 'Mobile No.'\nकृपया 'मोबाइल नंबर' दर्ज करें।");
+   //       $('#pri_mobile').focus();
+   //       return false;
+   //   } else if (fmobileno.length != 10) {
    
-         alert(
-             "Please enter 'Mobile Number' with 10 digit number\nकृपया 10 अंकों की संख्या के साथ 'मोबाइल नंबर' दर्ज करें");
-         $('#pri_mobile').focus();
-         return false;
-     }
+   //       alert(
+   //           "Please enter 'Mobile Number' with 10 digit number\nकृपया 10 अंकों की संख्या के साथ 'मोबाइल नंबर' दर्ज करें");
+   //       $('#pri_mobile').focus();
+   //       return false;
+   //   }
    
    //   var cno = $('#pri_mobile_confirm').val();
    //   if (cno == "") {
@@ -395,20 +409,20 @@ input#submit {
    //       return false;
    //   }
    
-     var femail = $("#email").val();
-     if (femail == "") {
+   //   var femail = $("#email").val();
+   //   if (femail == "") {
    
-         alert("Please enter 'Email Address'\nकृपया 'ईमेल पता' दर्ज करें");
-         $("#email").focus();
-         return false;
-     }
-     var mailformat =
-         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     if (!femail.match(mailformat)) {
-         alert("You have entered an invalid email ID!\nआपने एक अमान्य ईमेल आईडी दर्ज की है!");
-         $("#email").focus();
-         return false;
-     }
+   //       alert("Please enter 'Email Address'\nकृपया 'ईमेल पता' दर्ज करें");
+   //       $("#email").focus();
+   //       return false;
+   //   }
+   //   var mailformat =
+   //       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   //   if (!femail.match(mailformat)) {
+   //       alert("You have entered an invalid email ID!\nआपने एक अमान्य ईमेल आईडी दर्ज की है!");
+   //       $("#email").focus();
+   //       return false;
+   //   }
    //   var emailconfirm = $("#email_confirm").val();
    //   if (emailconfirm == "") {
    
@@ -430,7 +444,7 @@ input#submit {
    //   }
    
    
-     });
+    // });
      //createCaptcha function code//
    
      var code;
@@ -478,6 +492,159 @@ input#submit {
      }
      
    });
+   
+   function mailUpdate(e){
+      var femail = $("#email").val();
+      var mail_otp = $("#mail_otp").val();
+      var otplength =mail_otp.length;
+      var mailformat =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (femail == "") {
+         toastr.error('Please enter Email Address, कृपया ईमेल पता दर्ज करें.');
+      }else if(!femail.match(mailformat)){
+         toastr.error('You have entered an invalid email ID!');
+      }
+      else if(mail_otp == ""){
+         toastr.error('Please enter OTP!');
+      }
+      else if(otplength < 6 || otplength > 6){
+         toastr.error('Mail OTP must integer 6 number!');
+      }
+      else{
+        $("#overlay").fadeIn(300);　
+         $.ajax({
+            url: "<?php echo base_url('mail-update'); ?>",
+            type: "POST",
+            data: {
+               mail: femail,mail_otp:mail_otp
+            },
+            success: function(response) {
+               if(response.status == 'success'){
+                  toastr.success(response.message);
+                  setTimeout(function(){
+                     $("#overlay").fadeOut(300);
+                  },500);
+                  setInterval(() => {
+                        location.reload();
+                  },500);
+               }else{
+                  toastr.error(response.message);
+                  setTimeout(function(){
+                     $("#overlay").fadeOut(300);
+                  },500);
+                  setInterval(() => {
+                        location.reload();
+                  },500);
+               }
+              // $('#response-message').text(response).css('color', true ? 'green' : 'red');
+            },
+            error: function(response) {
+               toastr.error('An error occurred. Please try again.');
+               //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
+            }
+           
+         });
+      }
+     }
+     function mobileUpdate(e){
+      var fmobileno = $("#pri_mobile").val();
+      var mobile_otp = $("#mobile_otp").val();
+      var otplength =mobile_otp.length;
+      if (fmobileno == "") {
+         toastr.error('Please enter Mobile No.कृपया मोबाइल नंबर दर्ज करें।');
+      }else if(fmobileno.length != 10){
+         toastr.error('Please enter Mobile Number with 10 digit number');
+      }
+      else if(mobile_otp == ""){
+         toastr.error('Please enter OTP!');
+      }
+      else if(otplength < 6 || otplength > 6){
+         toastr.error('Mail OTP must integer 6 number!');
+      }
+      else{
+        $("#overlay").fadeIn(300);　
+         $.ajax({
+            url: "<?php echo base_url('mobile-update'); ?>",
+            type: "POST",
+            data: {
+               data: fmobileno,mobile_otp:mobile_otp
+            },
+            success: function(response) {
+               if(response.status == 'success'){
+                  toastr.success(response.message);
+                  setTimeout(function(){
+                     $("#overlay").fadeOut(300);
+                  },500);
+                  setInterval(() => {
+                        location.reload();
+                  },500);
+               }else{
+                  toastr.error(response.message);
+                  setTimeout(function(){
+                     $("#overlay").fadeOut(300);
+                  },500);
+                  setInterval(() => {
+                        location.reload();
+                  },500);
+               }
+              // $('#response-message').text(response).css('color', true ? 'green' : 'red');
+            },
+            error: function(response) {
+               toastr.error('An error occurred. Please try again.');
+               //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
+            }
+           
+         });
+      }
+     }
+     function passwordUpdate(e){
+      var password = $("#password").val();
+      var password_confirm = $("#confirm_password").val();
+      var otplength =mail_otp.length;
+      if (password == "") {
+         toastr.error('Please fill Password field');
+      }else if ($("#password").val().length < 8) {
+         toastr.error(" 'Password' must contain 8 character");
+      }else if ($("#confirm_password").val() == "") {
+         toastr.error("Please fill 'Confirm Password' field");
+      }else if (password != password_confirm) {
+         toastr.error('Confirm Password Does Not Match!');
+      }
+      else{
+        $("#overlay").fadeIn(300);　
+         $.ajax({
+            url: "<?php echo base_url('password-update'); ?>",
+            type: "POST",
+            data: {
+               data: password,
+            },
+            success: function(response) {
+               if(response.status == 'success'){
+                  toastr.success(response.message);
+                  setTimeout(function(){
+                     $("#overlay").fadeOut(300);
+                  },500);
+                  setInterval(() => {
+                        location.reload();
+                  },500);
+               }else{
+                  toastr.error(response.message);
+                  setTimeout(function(){
+                     $("#overlay").fadeOut(300);
+                  },500);
+                  setInterval(() => {
+                        location.reload();
+                  },500);
+               }
+              // $('#response-message').text(response).css('color', true ? 'green' : 'red');
+            },
+            error: function(response) {
+               toastr.error('An error occurred. Please try again.');
+               //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
+            }
+           
+         });
+      }
+     }
    function sendmailOTP(e){
         if(e == 'mail'){
          var value = $('#email').val();
