@@ -842,7 +842,121 @@ class Auth extends MY_Controller {
 			sendSMS($phone,$messageP1,$template_id);
 			sendEmail($email,$messageE1,$template_id);
 		}
+		public function mailUpdate(){
+			$adminId = $this->session->userdata('admin_id');
+			$mail = $this->input->post('mail');
 
+				$checkMailOTP = $this->db->select('*')->where(
+								array('user_id' => $adminId,'otp_type'=>'mail','otp_no'=>$this->input->post('mail_otp'))
+								)->get('ci_otp');
+				
+				if($checkMailOTP->num_rows() == 0) {
+					$response = array(
+						'status' => 'error',
+						'message' => "<h3>Mail OTP wrong.</h3>"
+					);
+				}else{
+				$data = array(
+					'email' => $mail,
+					//'username ' =>$mail,
+				);
+				$this->db->where('admin_id', $adminId)
+						->update('ci_exam_according_to_school', $data);
+				$this->db->where('admin_id', $adminId)
+						->update('ci_exam_registration', $data);
+				$status = $this->db->where('admin_id', $adminId)
+						->update('ci_admin', $data);
+				//print_r($this->db->last_query());die;
+				if($status ==true){
+					$response = array(
+						'status' => 'success',
+						'message' => "<h3>Mail change successfully.</h3>"
+					);
+				}else{
+				
+					$response = array(
+						'status' => 'error',
+						'message' => "<h3>Mail not change.</h3>"
+					);
+				}
+			}
+			$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($response));
+		}
+		public function mobileUpdate(){
+			$adminId = $this->session->userdata('admin_id');
+			$mobile_no = $this->input->post('mail');
+			$checkMObileOTP = $this->db->select('*')->where(
+				array('user_id' => $adminId,'otp_type'=>'mobile','otp_no'=>$this->input->post('mobile_otp')))
+				->get('ci_otp');
+			if($checkMObileOTP->num_rows() == 0)
+			{
+				$response = array(
+					'status' => 'error',
+					'message' => "<h3>Mobile OTP wrong.</h3>"
+				);
+
+			}else{
+				$data = array(
+					'pri_mobile' => $mobile_no,
+				);
+				$this->db->where('admin_id', $adminId)
+						->update('ci_exam_according_to_school', $data);
+				$this->db->where('admin_id', $adminId)
+						->update('ci_exam_registration', $data);
+				$status = $this->db->where('admin_id', $adminId)
+						->update('ci_admin', $data);
+				//print_r($status);die;
+				if($status ==true){
+					$response = array(
+						'status' => 'success',
+						'message' => "<h3>Mobile change successfully.</h3>"
+					);
+				}else{
+				
+					$response = array(
+						'status' => 'error',
+						'message' => "<h3>Mobile not change.</h3>"
+					);
+				}
+			}
+			$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($response));
+		}
+		public function passwordUpdate(){
+			$adminId = $this->session->userdata('admin_id');
+			$new_password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+			$data = array(
+				'password' => $new_password
+			);
+			// $this->db->where('admin_id', $adminId)
+			// 		   ->update('ci_exam_according_to_school', $data);
+			// $this->db->where('admin_id', $adminId)
+			// 		   ->update('ci_exam_registration', $data);
+			$status = $this->db->where('admin_id', $adminId)
+					   ->update('ci_admin', $data);
+			//print_r($status);die;
+			if($status ==true){
+				$response = array(
+					'status' => 'success',
+					'message' => "<h3>Password changed successfully.</h3>"
+				);
+			}else{
+			
+				$response = array(
+					'status' => 'error',
+					'message' => "<h3>Password not change.</h3>"
+				);
+			}
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($response));
+			//echo $status;
+			//return  $status;
+			//die();
+		}
 		public function sendOTP()
 		{
 			$val = $this->input->post('data');

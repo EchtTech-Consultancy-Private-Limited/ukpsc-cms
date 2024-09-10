@@ -172,3 +172,6 @@ $route['admin/send_invite'] = 'admin/examshedule_schedule/update_check_box';
 
 // $route['admin/step_2'] = "admin/consent_active/consent_add_1";
 $route['send-otp'] = 'admin/Auth/sendOTP';
+$route['mail-update'] = 'admin/Auth/mailUpdate';
+$route['mobile-update'] = 'admin/Auth/mobileUpdate';
+$route['password-update'] = 'admin/Auth/passwordUpdate';
