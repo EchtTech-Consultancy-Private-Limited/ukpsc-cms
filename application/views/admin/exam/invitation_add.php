@@ -10,9 +10,14 @@
             </div>
          </div>
          <div class="card-body">
-            
+            <div id="overlay">
+               <div class="cv-spinner">
+                  <span class="spinner"></span>
+               </div>
+            </div>
             <?php echo validation_errors(); ?>
-            <?php echo form_open_multipart(base_url('admin/master/invitation_add'), 'id="xin-form" class="form-horizontal"'); ?>
+            <!-- <//?php echo form_open_multipart(base_url('admin/master/invitation_add'), 'id="xin-form" class="form-horizontal"'); ?> -->
+            <form id="xin-form" class="form-horizontal">
             <div class="after-add-more field_wrapper">
                <div class="row">
                   <div class="col-md-12">
@@ -160,86 +165,150 @@
                      </div>
                      <div class="form-group mb-0">
                         <input type="hidden" readonly name="speedpost" id="speedpost">
-                        <input type="submit" name="submit" value="Create " class="btn btn-primary">
+                        <input type="submit" name="submit" value="Create" class="btn btn-primary">
                      </div>
                   </div>
                </div>
             </div>
-            <?php echo form_close(); ?>
+            </form>
+            <!-- <//?php echo form_close(); ?> -->
          </div>
       </div>
    </section>
 </div>
+<style>
+#toast-container h3 {
+   font-size: 14px;
+   height: 12px;
+   /* width: 100px; */
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script>
-   $("#country").addClass('active');
-   $(document).ready(function() {
-       $("#xin-form")["submit"](function(d) {
-           if ($("#exam_name").val() === "") {
-               alert("Please Select 'Exam Name'\nकृपया 'परीक्षा का नाम' चुनें");
-               $("#exam_name").focus();
-               return false;
-           }
-           if ($("#sub_name").val() === "") {
-               alert("Please fill 'Subject Name'\nकृपया 'विषय का नाम' भरें");
-               $("#sub_name").focus();
-               return false;
-           }
-           if ($("#no_candidate").val() === "") {
-               alert("Please fill 'No Candidate'\nकृपया 'कोई उम्मीदवार नहीं' भरें");
-               $("#no_candidate").focus();
-               return false;
-           }
-           if ($("#date_exam").val() === "") {
-               alert("Please fill 'Exam Date'\nकृपया 'परीक्षा तिथि' भरें");
-               $("#date_exam").focus();
-               return false;
-           }
-           if ($("#shft_exam").val() === "") {
-               alert("Please fill 'Exam Shift'\nकृपया 'परीक्षा पाली' भरें");
-               $("#shft_exam").focus();
-               return false;
-            }
-           if ($("#time_exam").val() === "") {
-               alert("Please fill 'Exam Time'\nकृपया 'परीक्षा का समय' भरें");
-            $("#time_exam").focus();
-               return false;
-           }
-           if($("#shft_exam").val() == 'Morning'){
-                var sum = 0;
-                $('.no_candidate').each(function(){
-                    sum += parseFloat(this.value);
-                });
-                let total_studentCount =  $('#no_candidate_new').val();
-                if(sum>total_studentCount){
-                alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
-                return false;
-            }
-           }else if($("#shft_exam").val() == 'Evening'){
-                var sum = 0;
-                $('.no_candidate').each(function(){
-                    sum += parseFloat(this.value);
-                });
-                let total_studentCount =  $('#no_candidate_new').val();
-                if(sum>total_studentCount){
-                alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
-                return false;
-            }
-           }else if($("#shft_exam").val() == 'Morning' && $("#shft_exam").val() == 'Evening'){
-            var sum = 0;
-                $('.no_candidate').each(function(){
-                    sum += parseFloat(this.value);
-                });
-                let total_studentCount =  $('#no_candidate_new').val();
-                if(sum>total_studentCount){
-                alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
-                return false;
-                }
+    $(document).ready(function() {
+            $('#xin-form').on('submit', function(e) {
+                e.preventDefault();
+            if($("#exam_name").val() === "") {
+            toastr.error('Please Select Exam Name कृपया परीक्षा का नाम चुनें');
+            }else if($("#sub_name").val() === "") {
+               toastr.error('Please fill Subject Name कृपया विषय का नाम भरें');
+            }else if($("#no_candidate").val() === "") {
+               toastr.error('Please fill No Candidate कृपया कोई उम्मीदवार नहीं भरें');
+            }else if($("#date_exam").val() === "") {
+               toastr.error('Please fill Exam Date कृपया परीक्षा तिथि भरें');
+            }else if($("#shft_exam").val() === "") {
+               toastr.error('Please fill Exam Shift कृपया परीक्षा पाली भरें');
+            }else if($("#time_exam").val() === "") {
+               toastr.error('Please fill Exam Time कृपया परीक्षा का समय भरें');
             }else{
+               $("#overlay").fadeIn(300);　
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "<?php echo base_url('admin/master/saveExamSchedule'); ?>",  // URL of the server-side script
+                    type: 'POST',            // Use POST method
+                    data: formData,          // Pass the form data
+                    contentType: false,      // Don't set any content-type header
+                    processData: false,      // Don't process the data (especially for files)
+                    success: function(response) {
+                        // Handle the response
+                        if(response.status == 'success'){
+                           toastr.success(response.message);
+                           setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
+                           setInterval(() => {
+                              // location.reload();
+                           },500);
+                        }else{
+                           toastr.error(response.message);
+                           setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
+                           setInterval(() => {
+                              //  location.reload();
+                           },500);
+                        }
+                    },
+                    error: function(response) {
+                        // Handle errors
+                        toastr.error('An error occurred. Please try again.');
+                    }
+                });
+               }
+            });
+        });
+   
+   $("#country").addClass('active');
+   // $(document).ready(function() {
+   //     $("#xin-form")["submit"](function(d) {
+   //         if ($("#exam_name").val() === "") {
+   //             alert("Please Select 'Exam Name'\nकृपया 'परीक्षा का नाम' चुनें");
+   //             $("#exam_name").focus();
+   //             return false;
+   //         }
+   //         if ($("#sub_name").val() === "") {
+   //             alert("Please fill 'Subject Name'\nकृपया 'विषय का नाम' भरें");
+   //             $("#sub_name").focus();
+   //             return false;
+   //         }
+   //         if ($("#no_candidate").val() === "") {
+   //             alert("Please fill 'No Candidate'\nकृपया 'कोई उम्मीदवार नहीं' भरें");
+   //             $("#no_candidate").focus();
+   //             return false;
+   //         }
+   //         if ($("#date_exam").val() === "") {
+   //             alert("Please fill 'Exam Date'\nकृपया 'परीक्षा तिथि' भरें");
+   //             $("#date_exam").focus();
+   //             return false;
+   //         }
+   //         if ($("#shft_exam").val() === "") {
+   //             alert("Please fill 'Exam Shift'\nकृपया 'परीक्षा पाली' भरें");
+   //             $("#shft_exam").focus();
+   //             return false;
+   //          }
+   //         if ($("#time_exam").val() === "") {
+   //             alert("Please fill 'Exam Time'\nकृपया 'परीक्षा का समय' भरें");
+   //          $("#time_exam").focus();
+   //             return false;
+   //         }
+   //         if($("#shft_exam").val() == 'Morning'){
+   //              var sum = 0;
+   //              $('.no_candidate').each(function(){
+   //                  sum += parseFloat(this.value);
+   //              });
+   //              let total_studentCount =  $('#no_candidate_new').val();
+   //              if(sum>total_studentCount){
+   //              alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
+   //              return false;
+   //          }
+   //         }else if($("#shft_exam").val() == 'Evening'){
+   //              var sum = 0;
+   //              $('.no_candidate').each(function(){
+   //                  sum += parseFloat(this.value);
+   //              });
+   //              let total_studentCount =  $('#no_candidate_new').val();
+   //              if(sum>total_studentCount){
+   //              alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
+   //              return false;
+   //          }
+   //         }else if($("#shft_exam").val() == 'Morning' && $("#shft_exam").val() == 'Evening'){
+   //          var sum = 0;
+   //              $('.no_candidate').each(function(){
+   //                  sum += parseFloat(this.value);
+   //              });
+   //              let total_studentCount =  $('#no_candidate_new').val();
+   //              if(sum>total_studentCount){
+   //              alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
+   //              return false;
+   //              }
+   //          }else{
 
-            }
+   //          }
            
-       });
-   });
+   //     });
+   // });
 </script>
 <script>
    var fieldHTML = '';

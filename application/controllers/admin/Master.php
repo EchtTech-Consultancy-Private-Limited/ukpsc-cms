@@ -652,16 +652,16 @@ class Master extends MY_Controller
             $editData = $this->Exam_model->getInvitationUsingExamId($this->input->post('exam_name'));
             if(isset($editData)){
                 $arr = [];
-            $sub_name1 =  explode(",",$sub_name.','.$editData['sub_name']);
-            $no_candidate1 =  explode(",",$no_candidate.','.$editData['no_candidate']);
-            $shft_exam1 = explode(",",$shft_exam.','.$editData['shft_exam']);
-            $date_exam1 =   explode(",",$date_exam.','.$editData['date_exam']);
-            $time_exam1 = explode(",",$time_exam.','.$editData['time_exam']);
-            $sub_name=[];
-            $no_candidate = [];
-            $shft_exam = [] ;
-            $date_exam = [] ;
-            $time_exam = [] ;
+                $sub_name1 =  explode(",",$sub_name.','.$editData['sub_name']);
+                $no_candidate1 =  explode(",",$no_candidate.','.$editData['no_candidate']);
+                $shft_exam1 = explode(",",$shft_exam.','.$editData['shft_exam']);
+                $date_exam1 =   explode(",",$date_exam.','.$editData['date_exam']);
+                $time_exam1 = explode(",",$time_exam.','.$editData['time_exam']);
+                $sub_name=[];
+                $no_candidate = [];
+                $shft_exam = [] ;
+                $date_exam = [] ;
+                $time_exam = [] ;
 
             foreach($sub_name1 as $key=>$value){
                 $senData = $value.'_'.$no_candidate1[$key].'_'.$shft_exam1[$key].'_'.$date_exam1[$key].'_'.$time_exam1[$key];
@@ -730,8 +730,167 @@ class Master extends MY_Controller
             $this->load->view('admin/includes/_footer');
         }
     }
+    //Dev by Brijesh
+     public function saveExamSchedule(){
+        if ($this->input->post()) {
+            $arr = [];
+            $sub_name1 = $this->input->post('sub_name') ;          
+            $no_candidate1 = $this->input->post('no_candidate');
+            $shft_exam1 = $this->input->post('shft_exam') ;
+            $date_exam1 = $this->input->post('date_exam') ;
+            $time_exam1 = $this->input->post('time_exam') ;
+            $sub_name=[];
+            $no_candidate = [];
+            $shft_exam = [] ;
+            $date_exam = [] ;
+            $time_exam = [] ;
+            $query = $this->db->query("SELECT * from ci_exam_master where status=1 and id=" . $this->input->post('exam_name'));
+            $condidateCount = $query->row_array()['no_of_cand'];
+            foreach($this->input->post('sub_name') as $key=>$value){
+                $senData = $value.'_'.$no_candidate1[$key].'_'.$shft_exam1[$key].'_'.$date_exam1[$key].'_'.$time_exam1[$key];
+                
+                if(!in_array($senData,$arr)){
+                    array_push($sub_name,$value); 
+                    array_push($no_candidate,$no_candidate1[$key]);    
+                    array_push($shft_exam,$shft_exam1[$key]);          
+                    array_push($date_exam,$date_exam1[$key]);          
+                    array_push($time_exam,$time_exam1[$key]);          
+                    array_push($arr,$senData);
+                }
+            }
+           
+           
+            $findDuplicate = array_diff_assoc($sub_name, array_unique($sub_name)); 
+            $findDuplicatetime_exam = array_diff_assoc($time_exam, array_unique($time_exam)); 
+            $findDuplicateshft_exam = array_diff_assoc($shft_exam, array_unique($shft_exam)); 
+          
+            foreach($no_candidate as $key=>$value){
+                if($value <= $condidateCount){
+                    $cehck= 1;
+                }else{
+                    $cehck= 0;
+                }
+            }
+            //print_r($cehck);die;
+            if(!empty($findDuplicate)){
+                //print_r('HI');die;
+                $response = array(
+                    'status' => 'error',
+                    'message' => "<h3>oh! Subject name are same.</h3>"
+                );
+            }elseif(!empty($findDuplicatetime_exam)){
+                $response = array(
+                    'status' => 'error',
+                    'message' => "<h3>oh! time are same.</h3>"
+                );
+            }elseif(!empty($findDuplicateshft_exam)){
+                $response = array(
+                    'status' => 'error',
+                    'message' => "<h3>oh! Shift are same.</h3>"
+                );
+            }
+            else{
+            
+            $sub_name =  implode(',',$sub_name);
+            $no_candidate =  implode(',',$no_candidate);
+            $shft_exam = implode(',',$shft_exam);
+            $date_exam = implode(',',$date_exam);
+            $time_exam =  implode(',',$time_exam);
+           
+            if ($this->input->post('subjectline') == '') {
+                $subjectline = $this->input->post('exam_name');
+                $subjectline_name_array = $this->Exam_model->subjectline_name($subjectline);
+                $subjectline = $subjectline_name_array[0]->exam_name . '(' . $subjectline_name_array[0]->exam_hindi_name . ')';
+            } else {
+                $subjectline = $this->input->post('subjectline');
+            }
 
 
+            $editData = $this->Exam_model->getInvitationUsingExamId($this->input->post('exam_name'));
+          //  print_r($editData);die;
+            if(isset($editData)){
+                $arr = [];
+                $sub_name1 =  explode(",",$sub_name.','.$editData['sub_name']);
+                $no_candidate1 =  explode(",",$no_candidate.','.$editData['no_candidate']);
+                $shft_exam1 = explode(",",$shft_exam.','.$editData['shft_exam']);
+                $date_exam1 =   explode(",",$date_exam.','.$editData['date_exam']);
+                $time_exam1 = explode(",",$time_exam.','.$editData['time_exam']);
+                $sub_name=[];
+                $no_candidate = [];
+                $shft_exam = [] ;
+                $date_exam = [] ;
+                $time_exam = [] ;
+
+            foreach($sub_name1 as $key=>$value){
+                    $senData = $value.'_'.$no_candidate1[$key].'_'.$shft_exam1[$key].'_'.$date_exam1[$key].'_'.$time_exam1[$key];
+                    if(!in_array($senData,$arr)){
+                        array_push($sub_name,$value);          
+                        array_push($no_candidate,$no_candidate1[$key]);          
+                        array_push($shft_exam,$shft_exam1[$key]);          
+                        array_push($date_exam,$date_exam1[$key]);          
+                        array_push($time_exam,$time_exam1[$key]);          
+                        array_push($arr,$senData);
+                    }
+                }
+                $sub_name =  implode(',',$sub_name);
+                $no_candidate =  implode(',',$no_candidate);
+                $shft_exam = implode(',',$shft_exam);
+                $date_exam = implode(',',$date_exam);
+                $time_exam =  implode(',',$time_exam);
+
+                $data = array(
+                    'speedpost' => $this->input->post('speedpost'),
+                    'subjectline' => $subjectline,
+                    'startdate' => $this->input->post('startdate'),
+                    'enddate' => $this->input->post('enddate'),
+                    'exam_name' => $this->input->post('exam_name'),
+                    'sub_name' => $sub_name,
+                    'no_candidate' => $no_candidate,
+                    'shft_exam' => $shft_exam,
+                    'date_exam' => $date_exam,
+                    'time_exam' => $time_exam,
+                    'created_at' => date('d-m-Y : h:m:s'),
+                    'created_by' => $this->session->userdata('admin_id'),
+                );
+                $data = $this->security->xss_clean($data);
+                $result = $this->Exam_model->edit_invitation($data);
+            }else{
+                $data = array(
+                    'speedpost' => $this->input->post('speedpost'),
+                    'subjectline' => $subjectline,
+                    'startdate' => $this->input->post('startdate'),
+                    'enddate' => $this->input->post('enddate'),
+                    'exam_name' => $this->input->post('exam_name'),
+                    'sub_name' => $sub_name,
+                    'no_candidate' => $no_candidate,
+                    'shft_exam' => $shft_exam,
+                    'date_exam' => $date_exam,
+                    'time_exam' => $time_exam,
+                    'created_at' => date('d-m-Y : h:m:s'),
+                    'created_by' => $this->session->userdata('admin_id'),
+                );
+                $data = $this->security->xss_clean($data);
+                $result = $this->Exam_model->add_invitation($data);
+
+            }
+            if($result ==true){
+                $response = array(
+                    'status' => 'success',
+                    'message' => "<h3>Exam Schedule Add successfully.</h3>"
+                );
+            }else{
+            
+                $response = array(
+                    'status' => 'error',
+                    'message' => "<h3>Exam Schedule Error.</h3>"
+                );
+            }
+        }}
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+           // print_r($this->input->post());die;
+     }                       
     // 22-09-2022 add new Code
     public function addSubjectNew($id)
     {

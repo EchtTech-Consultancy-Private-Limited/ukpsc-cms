@@ -156,10 +156,10 @@ input#submit {
       <!-- /.login-logo -->
       <div class="card" style="background: #373250; color:#fff;">
          <div class="card-body login-card-body">
-         <div id="overlay">
-            <div class="cv-spinner">
-               <span class="spinner"></span>
-            </div>
+            <div id="overlay">
+               <div class="cv-spinner">
+                  <span class="spinner"></span>
+               </div>
             </div>
             <div class="login-logo mb-4">
                <img src="<?= base_url(); ?>assets/dist/img/ukpsc_logo.png" height="150" /> 
