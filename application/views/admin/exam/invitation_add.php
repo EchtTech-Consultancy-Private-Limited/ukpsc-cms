@@ -176,19 +176,12 @@
       </div>
    </section>
 </div>
-<style>
-#toast-container h3 {
-   font-size: 14px;
-   height: 12px;
-   /* width: 100px; */
-}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script>
     $(document).ready(function() {
-            $('#xin-form').on('submit', function(e) {
+         $('#xin-form').on('submit', function(e) {
                 e.preventDefault();
             if($("#exam_name").val() === "") {
             toastr.error('Please Select Exam Name कृपया परीक्षा का नाम चुनें');
@@ -273,39 +266,15 @@
    //          $("#time_exam").focus();
    //             return false;
    //         }
-   //         if($("#shft_exam").val() == 'Morning'){
-   //              var sum = 0;
-   //              $('.no_candidate').each(function(){
-   //                  sum += parseFloat(this.value);
-   //              });
-   //              let total_studentCount =  $('#no_candidate_new').val();
-   //              if(sum>total_studentCount){
-   //              alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
-   //              return false;
-   //          }
-   //         }else if($("#shft_exam").val() == 'Evening'){
-   //              var sum = 0;
-   //              $('.no_candidate').each(function(){
-   //                  sum += parseFloat(this.value);
-   //              });
-   //              let total_studentCount =  $('#no_candidate_new').val();
-   //              if(sum>total_studentCount){
-   //              alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
-   //              return false;
-   //          }
-   //         }else if($("#shft_exam").val() == 'Morning' && $("#shft_exam").val() == 'Evening'){
    //          var sum = 0;
-   //              $('.no_candidate').each(function(){
-   //                  sum += parseFloat(this.value);
-   //              });
-   //              let total_studentCount =  $('#no_candidate_new').val();
-   //              if(sum>total_studentCount){
-   //              alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
-   //              return false;
-   //              }
-   //          }else{
-
-   //          }
+               // $('.no_candidate').each(function(){
+               //       sum += parseFloat(this.value);
+               // });
+               // let total_studentCount =  $('#no_candidate_new').val();
+               // if(sum>total_studentCount){
+               // alert(`Number of Candidate should be less then or equal ${total_studentCount}`);
+               // return false;
+               // }
            
    //     });
    // });
