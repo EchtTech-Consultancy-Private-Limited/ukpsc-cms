@@ -162,6 +162,9 @@
                         }
                     },
                     error: function(response) {
+                        setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
                         // Handle errors
                         toastr.error('An error occurred. Please try again.');
                     }
