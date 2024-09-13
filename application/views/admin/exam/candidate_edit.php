@@ -117,7 +117,7 @@ $("#country").addClass('active');
                                 $("#overlay").fadeOut(300);
                             },500);
                             setInterval(() => {
-                                // location.reload();
+                                location.reload();
                             },500);
                         }else{
                             toastr.error(response.message);
@@ -125,7 +125,7 @@ $("#country").addClass('active');
                                 $("#overlay").fadeOut(300);
                             },500);
                             setInterval(() => {
-                                //  location.reload();
+                              location.reload();
                             },500);
                         }
                     },
