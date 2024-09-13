@@ -175,3 +175,4 @@ $route['send-otp'] = 'admin/Auth/sendOTP';
 $route['mail-update'] = 'admin/Auth/mailUpdate';
 $route['mobile-update'] = 'admin/Auth/mobileUpdate';
 $route['password-update'] = 'admin/Auth/passwordUpdate';
+//$route['saveexam-schedule'] = 'admin/Master/saveExamSchedule';

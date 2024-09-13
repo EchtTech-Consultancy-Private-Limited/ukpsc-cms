@@ -120,6 +120,11 @@ function get_exam_name($id)
     $ci = &get_instance();
     return @$ci->db->get_where('ci_exam_master', array('id' => $id))->row_array()['exam_name'];
 }
+function get_exam_nameID($id)
+{
+    $ci = &get_instance();
+    return @$ci->db->get_where('ci_exam_master', array('id' => $id))->row_array()['id'];
+}
 
 function get_exam_namewithStatusOne($id)
 {
