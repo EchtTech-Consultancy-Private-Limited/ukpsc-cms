@@ -131,12 +131,15 @@ $("#country").addClass('active');
                     },
                     error: function(response) {
                         // Handle errors
+                        setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
                         toastr.error('An error occurred. Please try again.');
                     }
                 });
                 }
             });
-            
+
     $("#xin-form")["submit"](function(d) {
 
 

@@ -538,6 +538,9 @@ input#submit {
               // $('#response-message').text(response).css('color', true ? 'green' : 'red');
             },
             error: function(response) {
+               setTimeout(function(){
+                  $("#overlay").fadeOut(300);
+               },500);
                toastr.error('An error occurred. Please try again.');
                //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
             }
@@ -589,6 +592,9 @@ input#submit {
               // $('#response-message').text(response).css('color', true ? 'green' : 'red');
             },
             error: function(response) {
+               setTimeout(function(){
+                  $("#overlay").fadeOut(300);
+               },500);
                toastr.error('An error occurred. Please try again.');
                //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
             }
@@ -638,6 +644,9 @@ input#submit {
               // $('#response-message').text(response).css('color', true ? 'green' : 'red');
             },
             error: function(response) {
+               setTimeout(function(){
+                  $("#overlay").fadeOut(300);
+               },500);
                toastr.error('An error occurred. Please try again.');
                //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
             }
@@ -667,6 +676,9 @@ input#submit {
               // $('#response-message').text(response).css('color', true ? 'green' : 'red');
             },
             error: function(response) {
+               setTimeout(function(){
+                  $("#overlay").fadeOut(300);
+               },500);
                toastr.error('An error occurred. Please try again.');
                //$('#response-message').text('An error occurred. Please try again.').css('color', 'red');
             }
