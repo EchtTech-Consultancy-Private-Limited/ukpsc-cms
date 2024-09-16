@@ -201,7 +201,7 @@
                 $.ajax({
                     url: "<?php echo base_url('admin/master/saveexamschedule'); ?>",  // URL of the server-side script
                     type: 'POST',            // Use POST method
-                    data: formData,          // Pass the form data
+                    data: {formData,'csfr_token_name': csfr_token_value},          // Pass the form data
                     contentType: false,      // Don't set any content-type header
                     processData: false,      // Don't process the data (especially for files)
                     success: function(response) {
