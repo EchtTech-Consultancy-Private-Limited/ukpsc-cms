@@ -43,9 +43,17 @@ class Allocation_admin extends MY_Controller {
     $data['date_exam'] = isset($data['info'][0]['date_exam']) ? explode(",",$data['info'][0]['date_exam']) : [];
     $data['shft_exam'] = isset($data['info'][0]['shft_exam']) ? explode(",",$data['info'][0]['shft_exam']) : [];
     $data['no_candidate'] = isset($data['info'][0]['no_candidate']) ? explode(",",$data['info'][0]['no_candidate']) : [];
-    $data['candidates'] = isset($data['info'][0]['candidates']) ? explode(",",$data['info'][0   ]['candidates']) : [];
+    $data['candidates'] = isset($data['info'][0]['candidates']) ? explode(",",$data['info'][0]['candidates']) : [];
     $data['exam_id_new'] = $id;
-   
+    $data['exmin_ceterOption'] = isset($data['info'][0]['exmin_ceter_option']) ? explode(",",$data['info'][0]['exmin_ceter_option']) : [];
+    // $arrData=[];
+    // print_r($data['info'][0]['date_exam']);
+    // foreach($data['exmin_ceterOption'] as $vl){
+    //     if($vl == 'Yes'){
+    //         array_push($arrData,isset($data['info'][0]['date_exam']) ? explode(",",$data['info'][0]['date_exam']) : []);
+    //     }
+    // }
+    // print_r($arrData);die;
 
     $this->load->view('admin/allocation/allocation_list', $data);
     }  
@@ -172,6 +180,7 @@ class Allocation_admin extends MY_Controller {
         $this->load->view('admin/allocation/allocation_send_list', $data);
     }
      public function save() {
+        
         $data =[
             'school_id'=>isset($_GET['school_id'])?$_GET['school_id']:0,
             'exam_id'=> isset($_GET['exam_id'])?$_GET['exam_id']:0,

@@ -199,10 +199,17 @@
                                                                 <?php if(count($sub_info)!=1){
                                                                         ?>
                                                                 <td>
-
                                                                     <input type="hidden" id="yes" id="examincation_ids" name="examincation_ids" value="<?= $val['sub_name'] ?>">
                                                                     <input type="radio" id="yes<?= $x?>"  onclick="optionFunction('<?= $passValue ?>','yes','<?= $x?>')" name="exmin_ceter_option[]<?= $x; ?>" value="Yes" checked>Yes
-                                                                    <input type="radio" id="no<?= $x?>"class="checkClass" onclick="optionFunction('<?= $passValue ?>','no','<?= $x?>')" name="exmin_ceter_option[]<?= $x; ?>" value="No">No
+                                                                    <?php if($trueFalse !=1){ ?>
+                                                                        <input type="radio" id="no<?= $x?>"class="checkClass" onclick="optionFunction('<?= $passValue ?>','no','<?= $x?>')" name="exmin_ceter_option[]<?= $x; ?>" value="No">No
+                                                                    <?php }else{ ?>
+                                                                        <!-- <input type="radio" id="no<?= $x?>"class="checkClass" onclick="optionFunction('<?= $passValue ?>','no','<?= $x?>')" name="exmin_ceter_option[]<?= $x; ?>" value="No">No -->
+                                                                    <?php } ?>
+                                                                    <!-- Old Code -->
+                                                                    <!-- <input type="radio" id="yes<//?= $x?>"  onclick="optionFunction('<//?= $passValue ?>','yes','<//?= $x?>')" name="exmin_ceter_option[]<//?= $x; ?>" value="Yes" checked>Yes
+                                                                    <input type="radio" id="no<//?= $x?>"class="checkClass" onclick="optionFunction('<//?= $passValue ?>','no','<//?= $x?>')" name="exmin_ceter_option[]<//?= $x; ?>" value="No">No -->
+                                                                    <!-- End Old Code -->
                                                                     <input type="hidden" name="examincation_id" id="examincation_id" value="<?= $all_value; ?>" />
                                                                 </td>
                                                                 <?php }else{
@@ -239,7 +246,7 @@
                                                 <a href="<?= base_url("admin/consent_active/consent_add_4" . '/' . $segment_value); ?>" id="dwn" class="btn btn-sec">
                                                     Back
                                                 </a>
-                                                <input type="submit" name="submit" id="submit" class="btn btn-primary next_button"  value="Preview and Download Form">
+                                                <input type="submit" name="submit" id="submit" class="btn btn-primary next_button"  value="Preview and Save">
                                             </div>
                                         </div>
                                     </div>
@@ -264,7 +271,7 @@
                                     <div class="input-text1">
                                         <?php $segment_value = $this->uri->segment(4); ?>
                                         <input type="hidden" name="ci_exam_fileupload6" id="ci_exam_fileupload6" value="<?= $segment_value; ?>">
-                                        <input type="submit" name="submitupload" id="submitupload" class="btn btn-primary btn-block btn-flat next_button" value="Upload Consent Form">
+                                        <input type="submit" name="submitupload" id="submitupload" class="btn btn-primary btn-block btn-flat next_button" value="Upload Signed and Stamped">
                                     </div>
                                 </div>
                                 <?php echo form_close(); ?>

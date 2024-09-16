@@ -20,16 +20,12 @@
                     <th>Examination Center Name</th>
                     <th>Consent recieved</th>
                     <th>Examination Center code</th>
-
+                    <?php //print_r($exmin_ceterOption);die;  ?>
                     <?php foreach ($date_exam as $key1 => $date) { ?>
                         <th>
-                            <?php echo date('d-m-Y', strtotime($date));
-                            $date ?>
-                            <br>
-                            (<?php echo $shft_exam[$key1] ?>)
+                            <?php echo date('d-m-Y', strtotime($date)); ?>
+                            <br>(<?php echo $shft_exam[$key1] ?>)
                         </th>
-
-
                     <?php } ?>
 
                     <th><?= trans('action') ?></th>
@@ -183,7 +179,8 @@
 
         var school_id = $('#school_id_new' + id).val();
         var consentCount = $('#consent' + id).val();
-        // alert(consentCount);
+        var consentRecieved = parseInt(consentCount)+parseInt($('#consent' + id).val());
+       //  alert(consentRecieved);
         var exam_center_code = $('#exam_center_code' + id).val();
         var admin_id = $('#admin_id' + id).val();
         var exam_id = $('#exam_id').val();
@@ -198,8 +195,8 @@
              }
 
         });
-
-        if (sum > consentCount) {
+    //alert(consentCount);
+        if (sum > consentRecieved) {
             alert('Allocation can not be greater than Consent Received');
             return false;
         }
@@ -207,7 +204,7 @@
         var candidate_array = [];
         for (let k = 0; k < candidate_value_count; k++) {
             var candi_count = parseInt($('#candidate_value_school_id_new' + id + k).val());
-            if (consentCount >= candi_count) {
+            if (consentRecieved >= candi_count) {
                 candidate_array.push(candi_count);
             } else {
                 alert('Allocation can not be greater than Consent Received');

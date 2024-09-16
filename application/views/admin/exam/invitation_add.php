@@ -199,7 +199,7 @@
                $("#overlay").fadeIn(300);　
                 var formData = new FormData(this);
                 $.ajax({
-                    url: "<?php echo base_url('admin/master/saveExamSchedule'); ?>",  // URL of the server-side script
+                    url: "<?php echo base_url('admin/master/saveexamschedule'); ?>",  // URL of the server-side script
                     type: 'POST',            // Use POST method
                     data: formData,          // Pass the form data
                     contentType: false,      // Don't set any content-type header

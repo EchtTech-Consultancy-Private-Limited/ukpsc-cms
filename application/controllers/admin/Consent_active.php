@@ -530,12 +530,13 @@ class Consent_active extends MY_Controller
         } else {
             $fileName6 = "";
         }
+        
+    //print_r($this->input->post("examincation_ids"));die;
         if ($this->input->post("submit")) {
             $file_movement =
-                $this->input->post("submit") == "Submit" ? "2" : "1";
+            $this->input->post("submit") == "Submit" ? "2" : "1";
             $examincation_ids = $this->input->post("examincation_ids");
             $exmin_ceter_option = $this->input->post("exmin_ceter_option");
-
             $exmin_ceter_option = implode(",", $exmin_ceter_option);
             $ref_id = $this->input->post("ci_exam_registrationid5");
             $school_Id = getSchoolNameFromEmailId(
@@ -775,6 +776,14 @@ class Consent_active extends MY_Controller
             }
 
             $sub_info["sub_info"] = $sub_info;
+            $dates = explode(',', $data['examination_form'][0]['date_exam']);
+            $checkDateExam = array_diff_assoc($dates, array_unique($dates));
+            if(!empty($checkDateExam)){
+                $sub_info['trueFalse'] = 1;
+            }else{
+                $sub_info['trueFalse'] = 0;
+            }
+            //print_r($trueFalse);die;
             $this->load->view("admin/includes/_header", $sub_info);
             $this->load->view("admin/consent_active/consent5", $data);
             $this->load->view("admin/includes/_footer", $sub_name);
