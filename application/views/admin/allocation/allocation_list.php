@@ -19,6 +19,7 @@
                     <th>S.No.</th>
                     <th>Examination Center Name</th>
                     <th>Consent Sent</th>
+                    <th>District</th>
                     <th>Examination Center code</th>
                     <?php //print_r($exmin_ceterOption);die;  ?>
                     <?php foreach ($date_exam as $key1 => $date) { ?>
@@ -61,7 +62,9 @@
                             <?php echo $row['max_allocate_candidate'] ?>
                             <input hidden type="text" id="consent<?php echo $i ?>" name="consent<?php echo $i ?>" value="<?php echo $row['max_allocate_candidate'] ?>">
                         </td>
-
+                        <td>
+                            <?php echo $row['district'] ?>
+                        </td>
                         <td>
                             <?php $getCenterCode = getCenterCode($row['school_id'], $row['id']);
 

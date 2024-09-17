@@ -53,7 +53,7 @@ class Allocation_admin extends MY_Controller {
     //         array_push($arrData,isset($data['info'][0]['date_exam']) ? explode(",",$data['info'][0]['date_exam']) : []);
     //     }
     // }
-    // print_r($arrData);die;
+     //print_r($data);die;
 
     $this->load->view('admin/allocation/allocation_list', $data);
     }  

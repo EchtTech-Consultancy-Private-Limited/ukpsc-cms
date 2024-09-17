@@ -16,7 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>S.No.</th>
-                                    <th>Consent Sent</th>
+                                    <th>Consent recieved</th>
                                     <th>Examination Center code</th>
 
                                     <?php foreach ($date_exam as $key1 => $date) {?>
