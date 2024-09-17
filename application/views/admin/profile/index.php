@@ -573,9 +573,9 @@
 
                         <div class="form-group">
 
-                            <!-- <label for="password" class="col-md-12 control-label"><?php // trans('password') ?></label> -->
+                            <label for="password" class="col-md-12 control-label">Password<?php trans('password') ?></label>
 
-                            <!-- <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password "> -->
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password ">
 
                         </div>
 
@@ -591,7 +591,7 @@
 
                     <div class="col-md-12">
 
-                            <a href="<?= base_url('admin/dashboard'); ?>" class="btn btn-sec px-3 py-2">Back</a>
+                            <a href="<?= base_url('admin/dashboard'); ?>" class="btn btn-sec px-3 py-2">Back CC</a>
 
                     </div>
 

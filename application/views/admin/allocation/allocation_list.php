@@ -18,7 +18,7 @@
                 <tr>
                     <th>S.No.</th>
                     <th>Examination Center Name</th>
-                    <th>Consent recieved</th>
+                    <th>Consent Sent</th>
                     <th>Examination Center code</th>
                     <?php //print_r($exmin_ceterOption);die;  ?>
                     <?php foreach ($date_exam as $key1 => $date) { ?>
