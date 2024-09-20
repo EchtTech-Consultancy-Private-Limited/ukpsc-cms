@@ -417,7 +417,7 @@ class Master extends MY_Controller
 
             $state = $this->input->post('state');
             $state_array = implode(",", $state);
-
+            
             $district_code = $this->input->post('district_code');
             $district_code_array = implode(",", $district_code);
 
@@ -432,11 +432,18 @@ class Master extends MY_Controller
 
             $number_of_can = $this->input->post('number_of_can');
             $number_of_can_array = implode(",", $number_of_can);
-
+            
             $query = $this->db->query("SELECT * from ci_exam_master where status=1 and id=" . $this->input->post('exam_name'));
             $condidateCount = $query->row_array()['no_of_cand'];
+            
             $findDuplicatesubject = array_diff_assoc($sub_name, array_unique($sub_name)); 
-
+            $findDuplicateCity = array_diff_assoc($city, array_unique($city)); 
+            if(!empty($findDuplicateCity)){
+                $subjct = $findDuplicatesubject;
+            }else{
+                $subjct = [];
+            }
+           // print_r($subjct);die;
             foreach($number_of_can as $no_candidates){
                 if($no_candidates <= $condidateCount){
                     $rs = 1;
@@ -453,7 +460,7 @@ class Master extends MY_Controller
                     'status' => 'error',
                     'message' => "<h3>oh! Exam Already Exit.</h3>"
                 );
-        }elseif(!empty($findDuplicatesubject)){
+        }elseif(!empty($subjct)){
             $response = array(
                 'status' => 'error',
                 'message' => "<h3>oh! Subject name are same.</h3>"

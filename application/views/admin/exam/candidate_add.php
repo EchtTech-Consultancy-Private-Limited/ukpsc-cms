@@ -149,7 +149,7 @@
                               $("#overlay").fadeOut(300);
                            },500);
                            setInterval(() => {
-                               location.reload();
+                              location.reload();
                            },500);
                         }else{
                            toastr.error(response.message);
@@ -157,7 +157,7 @@
                               $("#overlay").fadeOut(300);
                            },500);
                            setInterval(() => {
-                              location.reload();
+                              //location.reload();
                            },500);
                         }
                     },
