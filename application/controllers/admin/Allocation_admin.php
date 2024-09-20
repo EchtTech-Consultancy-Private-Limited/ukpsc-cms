@@ -258,6 +258,8 @@ class Allocation_admin extends MY_Controller {
         $data['no_candidate'] = isset($data['info'][0]['no_candidate']) ? explode(",",$data['info'][0]['no_candidate']) : [];
         $data['candidates'] = isset($data['info'][0]['candidates']) ? explode(",",$data['info'][0   ]['candidates']) : [];
         $data['hideselectbutton'] = 'ok';
+        
+        //print_r($data['info']);die;
         $this->load->view('admin/allocation/allocation_list_send_to_user', $data);
         }  
 

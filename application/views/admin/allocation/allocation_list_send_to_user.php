@@ -87,6 +87,7 @@
                         <th>Examination Center Name</th>
                         <th>Consent recieved</th>
                         <th>Examination Center code</th>
+                        <th>Status</th>
 
                         <?php foreach ($date_exam as $key1 => $date) {?>
                         <th>
@@ -137,8 +138,9 @@
                         <?php $getCenterCode = getCenterCode( $row['school_id'],$row['id']); 
                         ?>
                         <td>
-                        <?php echo isset($getCenterCode)?$getCenterCode:''?>
+                             <?php echo isset($getCenterCode)?$getCenterCode:''?>
                         </td>
+                        <td><?php echo getAllocationCondiStatus($row['school_id'],$row['id']) ?></td>
 
                         <input hidden type="text" id="candidate_value_count<?php echo $i?>"
                             value="<?php echo count($no_candidate)?>">
