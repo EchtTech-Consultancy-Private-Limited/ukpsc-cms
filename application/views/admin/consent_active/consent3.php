@@ -167,12 +167,20 @@
 				</div>
 				<div class="form-group">
 				<label>Is principal/centre superintendent brass seal is available if not arrange the same as it is  for conducting the examination<i style="color:#ff0000; font-size:12px;">*</i> <br>(क्या प्रधानाचार्य/पर्यवेक्षक की ब्रास सील उपलब्ध है? यदि नही तो विभिन्न लिफाफों को सील्ड करने के लिए इसकी आवश्यकता होगी तथा परीक्षा आयोजन की दशा में इसे तैयार करा लिया जाए।) <i style="color:#ff0000; font-size:12px;">*</i></label>
-				 
                     <select class="form-control" name="bras_Seal" maxlength="60" placeholder="Is Electricity available?" id="bras_Seal">
-                                <option value="" >Select</option> value="" 
-                                <option value="Yes"<?php if($user['bras_Seal'] == 'Yes'){ echo "selected";} ?>>Yes (हाँ)</option>
-                                <option value="No"<?php if($user['bras_Seal'] == 'No'){ echo "selected";} ?>>No (नहीं)</option>
-                            </select>
+                        <option value="" >Select</option>  
+                        <option value="Yes"<?php if($user['bras_Seal'] == 'Yes'){ echo "selected";} ?>>Yes (हाँ)</option>
+                        <option value="No"<?php if($user['bras_Seal'] == 'No'){ echo "selected";} ?>>No (नहीं)</option>
+                    </select>
+				  
+				</div>
+                <div class="form-group">
+				<label>Dose School have CCTV facility<i style="color:#ff0000; font-size:12px;">*</i> <br>(क्या स्कूल में सीसीटीवी सुविधा है?) <i style="color:#ff0000; font-size:12px;">*</i></label>
+                    <select class="form-control" name="cctv_status" maxlength="60" placeholder="Is Electricity available?" id="cctv_status">
+                        <option value="" >Select</option>
+                        <option value="Yes"<?php if($user['cctv_status'] == 'Yes'){ echo "selected";} ?>>Yes (हाँ)</option>
+                        <option value="No"<?php if($user['cctv_status'] == 'No'){ echo "selected";} ?>>No (नहीं)</option>
+                    </select>
 				  
 				</div>
                 <div class="form-group">

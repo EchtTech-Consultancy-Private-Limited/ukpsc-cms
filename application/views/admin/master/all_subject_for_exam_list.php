@@ -89,11 +89,8 @@
               <td><?php echo $value['sub_name_hindi'] ?></td>
 
               <td><?php echo $value['sub_code'] ?></td>
-
-              <td> <a title="Edit"  class="update btn btn-sm btn-success" href="<?php echo base_url('admin/master/edit_subject_new/' . urlencrypt($value['id']).'/'.urlencrypt($value['exam_id']))?>"> <i class="fa fa-edit"></i></a> </td>
-
-       
-
+              <td> 
+                <a title="Edit"  class="update btn btn-sm btn-success" href="<?php echo base_url('admin/master/edit_subject_new/' . urlencrypt($value['id']).'/'.urlencrypt($value['exam_id']))?>"> <i class="fa fa-edit"></i></a> 
             </tr>
 
           <?php } ?>

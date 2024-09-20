@@ -112,12 +112,11 @@
 
             <div class="form-group">
 
-              <label >Mobile No.<i style="color:#ff0000; font-size:12px;">*</i><br> (मोबाइल नंबर)<i style="color:#ff0000; font-size:12px;">*</i></label>
+              <label >Alternate Mobile No.<i style="color:#ff0000; font-size:12px;">*</i><br> (मोबाइल नंबर)<i style="color:#ff0000; font-size:12px;">*</i></label>
 
-              <input class="form-control" type="text" name="super_mobile" maxlength="10" value="<?php if ($user['super_mobile'] != " ") {
-
-                                    echo $user['super_mobile'];
-
+              <input class="form-control" readonly type="text" name="super_mobile" maxlength="10" 
+                value="<?php if ($user['super_mobile'] != " ") {
+                              echo $user['super_mobile'];
                                 } ?>" id="super_mobile" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 
               </div>
@@ -128,11 +127,9 @@
 
              <label for="district" class="col-md-12 control-label">Email (used for communication with UKPSC) ईमेल (यूकेपीएससी के साथ संचार के लिए प्रयुक्त)<i style="color:#ff0000; font-size:12px;">*</i></label>
 
-              <input class="form-control" type="text" value="<?php if ($user['super_email'] != " ") {
-
-                                    echo $user['super_email'];
-
-                                } ?>"  name="super_email" id="super_email"  >
+              <input class="form-control" readonly type="text"
+               value="<?php echo isset($user['email'])?$user['email']:'' ?>" 
+                name="super_email" id="super_email"  >
 
                </div>
 
@@ -142,10 +139,9 @@
 
             <label for="district" class="col-md-12 control-label">Whats App No.<i style="color:#ff0000; font-size:12px;">*</i><br> (व्हाट्सएप नंबर)<i style="color:#ff0000; font-size:12px;">*</i></label>
 
-              <input class="form-control" type="text" name="super_whatspp" maxlength="10"  value="<?php if ($user['super_whatspp'] != " ") {
-
-                                    echo $user['super_whatspp'];
-
+              <input class="form-control" readonly type="text" name="super_whatspp" maxlength="10"  
+              value="<?php if ($user['super_mobile'] != " ") {
+                              echo $user['super_mobile'];
                                 } ?>"  id="super_whatspp"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  >
 
               

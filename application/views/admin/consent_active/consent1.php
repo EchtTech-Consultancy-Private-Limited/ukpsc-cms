@@ -136,7 +136,7 @@
 
               <label>Mobile No. (मोबाइल नंबर)<i style="color:#ff0000; font-size:12px;">*</i></label>
 
-              <input class="form-control" type="text" name="pri_mobile" id="pri_mobile" maxlength="10" value="<?php echo isset($admin['pri_mobile'])?$admin['pri_mobile']:'' ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+              <input class="form-control" type="text" readonly name="pri_mobile" id="pri_mobile" maxlength="10" value="<?php echo isset($admin['pri_mobile'])?$admin['pri_mobile']:'' ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
             </div>
 
@@ -158,7 +158,7 @@
 
               <label>Whats App No. (व्हाट्सएप नंबर)<i style="color:#ff0000; font-size:12px;">*</i></label> 
 
-              <input class="form-control" type="text" name="whats_num" id="whats_num" maxlength="10" value="<?php echo isset($admin['whats_num'])?$admin['whats_num']:'' ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+              <input class="form-control" type="text" readonly name="whats_num" id="whats_num" maxlength="10" value="<?php echo isset($admin['whats_num'])?$admin['whats_num']:'' ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
 
 

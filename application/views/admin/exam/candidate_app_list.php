@@ -94,23 +94,13 @@
                      <?php if($row['letter_issue'] == 0){ ?>
                         <a href="<?= base_url("admin/master/candidate_edit/" . urlencrypt($row['id'])); ?>" title="Edit"  class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>
                         </a>
+                     <a href="<?= base_url("admin/master/candiate_del/" . urlencrypt($row['id'])); ?>" onclick="return confirm ('Are You Sure?\nक्या आपको यकीन है?')" title="Delete" class="btn btn-danger btn-xs">
+                        <i class="fa fa-trash"></i>
+                     </a> 
                      <?php }else{ ?>
                         <a title="letter issued" class="btn btn-warning btn-xs"><i class="fa fa-envelope" aria-hidden="true"></i></a>
                      <?php } ?>
-                  <a href="<?= base_url("admin/master/candiate_del/" . urlencrypt($row['id'])); ?>" onclick="return confirm ('Are You Sure?\nक्या आपको यकीन है?')" title="Delete" class="btn btn-danger btn-xs">
-
-
-
-                  <i class="fa fa-trash"></i>
-
-
-
-                  </a> 
-
-               
-
-
-
+                     
                   </td>
 
 
