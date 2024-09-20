@@ -18,7 +18,7 @@
                 <tr>
                     <th>S.No.</th>
                     <th>Examination Center Name</th>
-                    <th>Consent Sent</th>
+                    <th>Consent Recieved</th>
                     <th>District</th>
                     <th>Examination Center code</th>
                     <?php //print_r($exmin_ceterOption);die;  ?>

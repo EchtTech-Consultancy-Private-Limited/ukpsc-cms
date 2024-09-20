@@ -161,7 +161,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Date</th>
-                                                            <th>Name in english</th>
+                                                            <th>Paper Name</th>
                                                             <th>Exam shift</th>
                                                             <th>Exam Time </th>
                                                             <?php if (count($sub_info) != 1) { ?>

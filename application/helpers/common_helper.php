@@ -120,11 +120,13 @@ function get_exam_name($id)
     $ci = &get_instance();
     return @$ci->db->get_where('ci_exam_master', array('id' => $id))->row_array()['exam_name'];
 }
+//Brijesh
 function get_exam_nameID($id)
 {
     $ci = &get_instance();
     return @$ci->db->get_where('ci_exam_master', array('id' => $id))->row_array()['id'];
 }
+//Brijesh
 function getAllocationCondiStatus($schoolID, $examID){
     $ci = &get_instance();
     $result= @$ci->db->get_where('ci_allocation_table', array('school_id'=>$schoolID,'exam_id' => $examID))->row_array()['status'];
@@ -133,6 +135,26 @@ function getAllocationCondiStatus($schoolID, $examID){
     }else{
         return "<span style='color: #f50d0d;'>Pending</span>";
     }
+}
+//Brijesh  checkschedule
+function checkschedule($examID){
+
+  //  print_r($examID);die;
+    $ci = &get_instance();
+    $result= @$ci->db->get_where('ci_exam_invitation', array('exam_name'=>3))->get()->result_array();
+
+    
+}
+function checkcondidateAssigned($examID){
+
+    $ci = &get_instance();
+    $result= $ci->db->select('*')->where('exam_name', $examID)->get('ci_candidate_app')->row_array()['id'];
+    if(!empty($result)){
+        return true;
+    }else{
+        return false;
+    }
+    
 }
 function get_exam_namewithStatusOne($id)
 {

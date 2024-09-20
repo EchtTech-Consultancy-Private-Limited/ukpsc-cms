@@ -87,7 +87,7 @@
                         <th>Examination Center Name</th>
                         <th>Consent recieved</th>
                         <th>Examination Center code</th>
-                        <th>Status</th>
+                        <th>Center Informed Status</th>
 
                         <?php foreach ($date_exam as $key1 => $date) {?>
                         <th>

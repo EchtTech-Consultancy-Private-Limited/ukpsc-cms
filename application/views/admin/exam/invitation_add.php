@@ -184,7 +184,7 @@
          $('#xin-form').on('submit', function(e) {
                 e.preventDefault();
             if($("#exam_name").val() === "") {
-            toastr.error('Please Select Exam Name कृपया परीक्षा का नाम चुनें');
+               toastr.error('Please Select Exam Name कृपया परीक्षा का नाम चुनें');
             }else if($("#sub_name").val() === "") {
                toastr.error('Please fill Subject Name कृपया विषय का नाम भरें');
             }else if($("#no_candidate").val() === "") {

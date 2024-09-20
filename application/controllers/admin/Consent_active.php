@@ -283,6 +283,7 @@ class Consent_active extends MY_Controller
                 $exam_id,
                 $school_Id
             );
+            //print_r($data["user"]['email']);die;
             $this->load->view("admin/includes/_header");
             $this->load->view("admin/consent_active/consent2", $data);
             $this->load->view("admin/includes/_footer");

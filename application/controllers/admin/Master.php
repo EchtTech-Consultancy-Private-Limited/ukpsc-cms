@@ -147,6 +147,20 @@ class Master extends MY_Controller
         $i = 0;
 
         foreach ($records['data'] as $row) {
+            $schdulecheck = $this->db->select('*')->from('ci_exam_invitation')->where('exam_name',$row['id'])->get()->result_array();
+            
+            if(count($schdulecheck) >0){
+                $action ='Exam Scheduled';
+            }else{
+                $action ='<a title="Edit" class="update btn btn-sm btn-warning" href="' . base_url('admin/master/exam_edit/' . urlencrypt($row['id'])) . '"> <i class="fa fa-pencil-square-o"></i></a>
+                <a title="Delete" class="delete btn btn-sm btn-danger" href="'.base_url('admin/master/exam_del/' . urlencrypt($row['id'])).'" onclick="return confirm(\'Do you want to delete ?\nक्या आपको यकीन है?\')" > <i class="fa fa-trash-o"></i></a>';
+            }
+            if(count($schdulecheck) >0){
+                $subject ='Exam Scheduled';
+            }else{
+                $subject = '<a title="Add" class="update btn btn-sm btn-success" href="' . base_url('admin/master/addSubjectNew/' . urlencrypt($row['id'])) . '"> <i class="fa fa-plus"></i></a>
+                <a title="View" class="update btn btn-sm btn-warning" href="' . base_url('admin/master/view_all_subjectNew/' . urlencrypt($row['id'])) . '"> <i class="fa fa-eye"></i></a>';
+            }
             $data[] = [
                 ++$i,
 
@@ -156,13 +170,8 @@ class Master extends MY_Controller
                 $row['no_of_cand'] ? $row['no_of_cand'] : '',
                 $row['start_date_exam'] ? date("d-m-Y", strtotime($row['start_date_exam'])) : '',
                 $row['end_date_exam'] ?   date("d-m-Y", strtotime($row['end_date_exam'])) : '',
-                '<a title="Add"  class="update btn btn-sm btn-success" href="' . base_url('admin/master/addSubjectNew/' . urlencrypt($row['id'])) . '"> <i class="fa fa-plus"></i></a>
-                <a title="View"  class="update btn btn-sm btn-warning" href="' . base_url('admin/master/view_all_subjectNew/' . urlencrypt($row['id'])) . '"> <i class="fa fa-eye"></i></a>',
-                '<a title="Edit"  class="update btn btn-sm btn-warning" href="' . base_url('admin/master/exam_edit/' . urlencrypt($row['id'])) . '"> <i class="fa fa-pencil-square-o"></i></a>
-                <a title="Delete" class="delete btn btn-sm btn-danger" href="' .
-                    base_url('admin/master/exam_del/' . urlencrypt($row['id'])) .
-                    '" onclick="return confirm(\'Do you want to delete ?\nक्या आपको यकीन है?\')" > <i class="fa fa-trash-o"></i></a>',
-
+                $subject,
+                $action,
             ];
         }
 

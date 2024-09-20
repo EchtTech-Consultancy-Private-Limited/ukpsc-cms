@@ -101,13 +101,13 @@
               <a href="<?= base_url("admin/master/invitation_preview/" . urlencrypt($row['exam_name'])); ?>" title="Preview"  class="btn btn-warning btn-xs">
                <i class="fa fa-eye"></i>
               </a>
+            <?php $chek = checkcondidateAssigned($row['exam_name']); if($chek == false) { ?>
               <a  href="<?= base_url("admin/master/date_sheet_del/" . urlencrypt($row['id'])); ?>" onclick="return confirm ('Are You Sure?\nक्या आपको यकीन है?')" title="Delete" class="btn btn-danger btn-xs" >
-
-            <i class="fa fa-trash"></i>
-
+                  <i class="fa fa-trash"></i>
              </a> 
-          
-
+             <?php }else{ ?>
+               <span class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></span>
+               <?php } ?>
             </td>
 
          </tr>
