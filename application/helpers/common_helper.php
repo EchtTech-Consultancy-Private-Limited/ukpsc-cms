@@ -125,7 +125,15 @@ function get_exam_nameID($id)
     $ci = &get_instance();
     return @$ci->db->get_where('ci_exam_master', array('id' => $id))->row_array()['id'];
 }
-
+function getAllocationCondiStatus($schoolID, $examID){
+    $ci = &get_instance();
+    $result= @$ci->db->get_where('ci_allocation_table', array('school_id'=>$schoolID,'exam_id' => $examID))->row_array()['status'];
+    if($result == 1){
+        return "<span style='color: #0cb60c;'>Informed</span>";
+    }else{
+        return "<span style='color: #f50d0d;'>Pending</span>";
+    }
+}
 function get_exam_namewithStatusOne($id)
 {
     $ci = &get_instance();
