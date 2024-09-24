@@ -167,12 +167,19 @@
 				</div>
 				<div class="form-group">
 				<label>Is principal/centre superintendent brass seal is available if not arrange the same as it is  for conducting the examination?<span class="ml-1" style="color:red;">*</span> <br>(क्या प्रधानाचार्य/पर्यवेक्षक की ब्रास सील उपलब्ध है? यदि नही तो विभिन्न लिफाफों को सील्ड करने के लिए इसकी आवश्यकता होगी तथा परीक्षा आयोजन की दशा में इसे तैयार करा लिया जाए?)<span class="ml-1" style="color:red;">*</span> </label>
-				 
                     <select class="form-control" name="bras_Seal" maxlength="60" placeholder="Is Electricity available?" id="bras_Seal">
-                                <option value="" >Select</option> value="" 
-                                <option value="Yes"<?php if(isset($user['bras_Seal'])){if($user['bras_Seal'] == 'Yes'){ echo "selected";}} ?>>Yes (हाँ)</option>
-                                <option value="No"<?php if(isset($user['bras_Seal'])){if($user['bras_Seal'] == 'No'){ echo "selected";}} ?>>No (नहीं)</option>
-                            </select>
+                        <option value="" >Select</option> value="" 
+                        <option value="Yes"<?php if(isset($user['bras_Seal'])){if($user['bras_Seal'] == 'Yes'){ echo "selected";}} ?>>Yes (हाँ)</option>
+                        <option value="No"<?php if(isset($user['bras_Seal'])){if($user['bras_Seal'] == 'No'){ echo "selected";}} ?>>No (नहीं)</option>
+                    </select>
+				</div>
+                <div class="form-group">
+				<label>Dose School have CCTV facility<i style="color:#ff0000; font-size:12px;">*</i> <br>(क्या स्कूल में सीसीटीवी सुविधा है?) <i style="color:#ff0000; font-size:12px;">*</i></label>
+                    <select class="form-control" name="cctv_status" maxlength="60" placeholder="Is CCTV facility?" id="cctv_status">
+                        <option value="" >Select</option>
+                        <option value="Yes"<?php if($user['cctv_status'] == 'Yes'){ echo "selected";} ?>>Yes (हाँ)</option>
+                        <option value="No"<?php if($user['cctv_status'] == 'No'){ echo "selected";} ?>>No (नहीं)</option>
+                    </select>
 				  
 				</div>
                 <div class="form-group">
@@ -378,7 +385,7 @@ var step_num_content=document.querySelectorAll(".step-number-content");
                 $("select#vehicle_avail").focus();
                 return false;
             }
-     var staff_suffi = $("select#staff_suffi option").filter(":selected").val();
+            var staff_suffi = $("select#staff_suffi option").filter(":selected").val();
             if (staff_suffi == "") {
                 alert("Please select 'Does School have sufficient number of invigilators and staff for exam conduction'.\nकृपया 'क्या स्कूल में परीक्षा संचालन के लिए पर्याप्त संख्या में निरीक्षक और कर्मचारी हैं' का चयन करें।");
                 $("select#staff_suffi").focus();
@@ -401,13 +408,19 @@ var step_num_content=document.querySelectorAll(".step-number-content");
                 alert("Please select 'Has school been debarred from any examination'?\nकृपया 'क्या स्कूल को किसी परीक्षा से वंचित कर दिया गया है' चुनें?");
                 $("select#debar").focus();
                 return false;
-            }   
-            var bras_Seal = $("select#bras_Seal option").filter(":selected").val();
-            if (bras_Seal == "") {
-                alert("Please select 'Is principal/centre superintendent brass seal is available if not arrange the same as it is for conducting the examination?'\n कृपया चुनें 'क्या प्राचार्य/केंद्र अधीक्षक पीतल की मुहर उपलब्ध है यदि परीक्षा आयोजित करने के लिए इसकी व्यवस्था नहीं की गई है?'");
-                $("select#bras_Seal").focus();
+            } 
+            var cctv_status = $("select#cctv_status option").filter(":selected").val();
+            if (cctv_status == "") {
+                alert("Please select 'Dose School have CCTV facility?'\n क्या स्कूल में सीसीटीवी सुविधा है?'");
+                $("select#cctv_status").focus();
                 return false;
             }
+            var debar = $("select#debar option").filter(":selected").val();
+            if (debar == "") {
+                alert("Please select 'Has school been debarred from any examination'?\nकृपया 'क्या स्कूल को किसी परीक्षा से वंचित कर दिया गया है' चुनें?");
+                $("select#debar").focus();
+                return false;
+            }   
 
         });
 

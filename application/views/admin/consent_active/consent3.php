@@ -176,7 +176,7 @@
 				</div>
                 <div class="form-group">
 				<label>Dose School have CCTV facility<i style="color:#ff0000; font-size:12px;">*</i> <br>(क्या स्कूल में सीसीटीवी सुविधा है?) <i style="color:#ff0000; font-size:12px;">*</i></label>
-                    <select class="form-control" name="cctv_status" maxlength="60" placeholder="Is Electricity available?" id="cctv_status">
+                    <select class="form-control" name="cctv_status" maxlength="60" placeholder="Is CCTV facility?" id="cctv_status">
                         <option value="" >Select</option>
                         <option value="Yes"<?php if($user['cctv_status'] == 'Yes'){ echo "selected";} ?>>Yes (हाँ)</option>
                         <option value="No"<?php if($user['cctv_status'] == 'No'){ echo "selected";} ?>>No (नहीं)</option>

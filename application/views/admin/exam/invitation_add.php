@@ -221,7 +221,7 @@
                               $("#overlay").fadeOut(300);
                            },500);
                            setInterval(() => {
-                               location.reload();
+                               //location.reload();
                            },500);
                         }
                     },
