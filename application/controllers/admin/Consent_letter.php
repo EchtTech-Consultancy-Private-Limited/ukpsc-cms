@@ -264,6 +264,7 @@ public function consent_add_1() {
                     'ukpsc_exxma' => $this->input->post('ukpsc_exxma'),
                     'debar' => $this->input->post('debar'),
                     'bras_Seal' => $this->input->post('bras_Seal'),
+                    'cctv_status' => $this->input->post('cctv_status'),
                     'remark_if' => $this->input->post('remark_if'),
                                      
                 ];
@@ -285,6 +286,7 @@ public function consent_add_1() {
             $this->load->view('admin/consent_letter/consent3',$data);
             $this->load->view('admin/includes/_footer');
         }
+       // print_r();die;
     }
      public function consent_add_4() {
         // $this->rbac->check_operation_access();

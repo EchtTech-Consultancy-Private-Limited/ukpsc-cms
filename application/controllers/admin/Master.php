@@ -966,31 +966,37 @@ class Master extends MY_Controller
                     $frs[] = $rs;
             }
             $finres = in_array(0,$frs);
-            // $checkExamName = $this->db->query("SELECT * from ci_exam_invitation where exam_name=".$this->input->post('exam_name'));
-            // $checkExamNameexit = $checkExamName->num_rows();
-            // if(!empty($checkExamNameexit >0)){
-            //     $response = array(
-            //         'status' => 'error',
-            //         'message' => "<h3>oh! Exam Already Exit.</h3>"
-            //     );
-            // }else
+            $checkExamName = $this->db->query("SELECT * from ci_exam_invitation where exam_name=".$this->input->post('exam_name'));
+            $subjectArray = explode(',',$checkExamName->row()->sub_name);
+            $arayData = array_diff($sub_name, $subjectArray);
+          // print_r($arayData);die;
+            $checkExamNameexit = $checkExamName->num_rows();
+            if(empty($arayData)){
+                $response = array(
+                    'status' => 'error',
+                    'message' => "<h3>oh! Subject Already Exit.</h3>"
+                );
+            }else
             if(!empty($findDuplicatesubject)){
                 
                 $response = array(
                     'status' => 'error',
                     'message' => "<h3>oh! Subject name are same.</h3>"
                 );
-            }elseif(!empty($findDuplicatetime_exam)){
-                $response = array(
-                    'status' => 'error',
-                    'message' => "<h3>oh! time are same.</h3>"
-                );
-            }elseif(!empty($findDuplicateshft_exam)){
-                $response = array(
-                    'status' => 'error',
-                    'message' => "<h3>oh! Shift are same.</h3>"
-                );
-            }elseif($finres == 1){
+            }
+            // elseif(!empty($findDuplicatetime_exam)){
+            //     $response = array(
+            //         'status' => 'error',
+            //         'message' => "<h3>oh! time are same.</h3>"
+            //     );
+            // }
+            // elseif(!empty($findDuplicateshft_exam)){
+            //     $response = array(
+            //         'status' => 'error',
+            //         'message' => "<h3>oh! Shift are same.</h3>"
+            //     );
+            // }
+            elseif($finres == 1){
                 $response = array(
                     'status' => 'error',
                     'message' => "<h3>oh! not more then ".$condidateCount.".</h3>"
