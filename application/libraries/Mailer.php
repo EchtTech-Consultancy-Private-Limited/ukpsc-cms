@@ -48,6 +48,7 @@ class Mailer
         $template_id = $template['id'];
         $data['head'] = $subject = $template['subject'];
         $data['content'] = $this->mail_template_variables($body,$slug,$mail_data);
+     //print_r($data);die;
         $data['title'] = $template['name'];
         $template =  $this->CI->load->view('admin/general_settings/email_templates/email_preview', $data,true); 
         send_email($to,$subject,$template);
@@ -97,9 +98,9 @@ class Mailer
 
 
 
-                $content = str_replace('{VERIFICATION_LINK}',$data['verification_link'],$content);
+                $content = str_replace('{VERIFICATION_LINK}','Verify your email: <a href="'.$data['verification_link'].'" style="text-decoration: underline;color: #3F51B5;">Click Here</a>',$content);
 
-
+                
 
                 return $content;
 
