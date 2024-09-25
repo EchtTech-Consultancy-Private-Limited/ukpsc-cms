@@ -93,7 +93,30 @@ class Profile extends MY_Controller
             $this->load->view("admin/includes/_footer");
         }
     }
-
+    // Brijesh Password change code
+    public function passwordChange(){
+        $id = $this->session->userdata("admin_id");
+        $data = [
+            "password" => password_hash($this->input->post("password"),PASSWORD_BCRYPT),
+        ];
+        $data = $this->security->xss_clean($data);
+        $result = $this->admin_model->change_pwd($data, $id);
+        if($result ==true){
+            $response = array(
+                'status' => 'success',
+                'message' => "<h3>Password Updated successfully.</h3>"
+            );
+        }else{
+        
+            $response = array(
+                'status' => 'error',
+                'message' => "<h3>Password Update Error.</h3>"
+            );
+        }
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
     //-------------------------------------------------------------------------
 
     public function change_pwd()
@@ -125,11 +148,7 @@ class Profile extends MY_Controller
                 redirect(base_url("admin/profile/change_pwd"), "refresh");
             } else {
                 $data = [
-                    "password" => password_hash(
-                        $this->input->post("password"),
-
-                        PASSWORD_BCRYPT
-                    ),
+                    "password" => password_hash($this->input->post("password"),PASSWORD_BCRYPT),
                 ];
 
                 $data = $this->security->xss_clean($data);
