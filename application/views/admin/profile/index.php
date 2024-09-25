@@ -512,7 +512,6 @@
                 </div>
 
                 <div class="row">
-
                     <div class="col-md-4">
 
                         <div class="form-group">
@@ -567,38 +566,29 @@
 
                         </div>
 
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-
-                            <label for="password" class="col-md-12 control-label">Password<?php trans('password') ?></label>
-
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password ">
-
                         </div>
-
                     </div>
-
-                </div>
-
-
-
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="password" class="col-md-12 control-label">Password<?php trans('password') ?></label>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password ">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="password" class="col-md-12 control-label" style="margin-top: 16px;"></label>
+                                <button type="button" onclick="passwordUpdate()" class="btn btn-sec">Update</button>
+                            </div>
+                        </div>
+                    </div>
 
 
                 <div class="form-group" style="text-align:center;">
-
                     <div class="col-md-12">
-
-                            <a href="<?= base_url('admin/dashboard'); ?>" class="btn btn-sec px-3 py-2">Back CC</a>
-
+                        <a href="<?= base_url('admin/dashboard'); ?>" class="btn btn-sec px-3 py-2">Back</a>
                     </div>
-
                 </div>
-
-
-
                 <?php echo form_close(); ?>
 
             </div>
@@ -616,12 +606,55 @@
 <?php } ?>
 
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script type="text/javascript">
-
+function passwordUpdate() {
+            if($("#password").val() === "") {
+                toastr.error('Please Enter the password कृपया पासवर्ड दर्ज करें');
+            }else{
+               $("#overlay").fadeIn(300);　
+                var password = $("#password").val();
+                $.ajax({
+                    url: "<?php echo base_url('admin/profile/passwordChange'); ?>",  // URL of the server-side script
+                    type: 'POST',            // Use POST method
+                    data: {password:password},          // Pass the form data
+                   // contentType: false,      // Don't set any content-type header
+                  //  processData: false,      // Don't process the data (especially for files)
+                    success: function(response) {
+                        // Handle the response
+                        if(response.status == 'success'){
+                           toastr.success(response.message);
+                           setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
+                           setInterval(() => {
+                              //location.reload();
+                           },500);
+                        }else{
+                           toastr.error(response.message);
+                           setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
+                           setInterval(() => {
+                              //location.reload();
+                           },500);
+                        }
+                    },
+                    error: function(response) {
+                        setTimeout(function(){
+                              $("#overlay").fadeOut(300);
+                           },500);
+                        // Handle errors
+                        toastr.error('An error occurred. Please try again.');
+                    }
+                });
+               }
+            }
 $(document).ready(function() {
 
-
+   
 
     var mainStr = $('#mobile_no').val();
 
