@@ -445,10 +445,21 @@ class Master extends MY_Controller
             $query = $this->db->query("SELECT * from ci_exam_master where status=1 and id=" . $this->input->post('exam_name'));
             $condidateCount = $query->row_array()['no_of_cand'];
             
-            $findDuplicatesubject = array_diff_assoc($sub_name, array_unique($sub_name)); 
-            $findDuplicateCity = array_diff_assoc($city, array_unique($city)); 
-            if(!empty($findDuplicateCity)){
-                $subjct = $findDuplicatesubject;
+            $duplicateCityValues = [];
+            $duplicatesFound = false;
+            foreach ($city as $key => $value) {
+                if (in_array($value, $duplicateCityValues)) {
+                    $firstOccurrenceIndex = array_search($value, $city);
+                    if ($sub_name[$firstOccurrenceIndex] == $sub_name[$key]) {
+                        $duplicatesFound = true;
+                        break;
+                    }
+                } else {
+                    $duplicateCityValues[] = $value;
+                }
+            }
+            if($duplicatesFound){
+                $subjct = $duplicatesFound;
             }else{
                 $subjct = [];
             }
