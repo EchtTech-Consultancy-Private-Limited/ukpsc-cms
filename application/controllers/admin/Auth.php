@@ -351,9 +351,8 @@ class Auth extends MY_Controller {
 				$school_registration_result = $this->auth_model->schoolregistrationcheck($this->input->post('school_registration'));
 				$result = $this->auth_model->emailcheck($this->input->post('email'));
 				$mobileDuplicate = $this->auth_model->mobileCheck($this->input->post('pri_mobile'));
-				
-				if ($school_registration_result) {
-
+				//print_r($school_registration_result);die;
+				if ($school_registration_result =='exit') {
 					$this->session->set_flashdata('form_data', $this->input->post());
 					$this->session->set_flashdata('allerrorshow', "Registration Number already registered<br/>पंजीकरण संख्या पहले से पंजीकृत<br/>");
 					redirect(base_url('admin/auth/register'));
