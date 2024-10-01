@@ -158,7 +158,7 @@ $db['default'] = array(
 
 	'password' => '',
 
-	'database' => 'ukpsc_cms',
+	'database' => 'cms_db',
 
 	'dbdriver' => 'mysqli',
 
