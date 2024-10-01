@@ -136,8 +136,9 @@ $config = array(
 //     'protocol' => 'smtp',
 //     'smtp_host' => 'sandbox.smtp.mailtrap.io',
 //     'smtp_port' => 2525,
-//     'smtp_user' => '0cf03c4052b0bd',
-//     'smtp_pass' => '41eb65e91e1d35',
+//     'smtp_user' => '63da060581d98b',
+//     'smtp_pass' => '1f39538a3a4fb2',
+//     'smtp_crypto' => 'tls',
 //     'crlf' => "\r\n",
 //     'newline' => "\r\n"
 //   );

@@ -129,6 +129,12 @@ class Certificate_model extends CI_Model {
         return $result = $query->row_array();
     }
 
+    public function get_image_view($id) {
+        $query = $this->db->get_where('ci_exam_according_to_school',
+                array('ref_id' => $id));
+        return $result = $query->row_array();
+    }    
+
     public function add_edit_step_data($data, $admin_id) {
         $this->db->where('admin_id', $admin_id);
         

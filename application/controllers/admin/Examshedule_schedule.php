@@ -1705,8 +1705,8 @@ class Examshedule_schedule extends MY_Controller {
         
         $this->load->view('admin/exam/create_letter_list', $data);
     }
-     public function create_invt_add() {
-       
+     public function create_invt_add() {     
+        
         if ($this->input->post()) {
 
             $sub_name = $this->input->post('sub_name') ? implode(',', $this->input->post('sub_name')) : "";

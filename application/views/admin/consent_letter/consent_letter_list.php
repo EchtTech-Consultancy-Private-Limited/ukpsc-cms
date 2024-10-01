@@ -269,6 +269,7 @@
 
                               ?>
                               <a href="<?= base_url("admin/consent_letter/preview_form/" . urlencrypt($row['id'])); ?>" title="Download Form" onclick="return confirm('Download form ?')" class="btn btn-sec"><i class="fa fa-eye"></i></a>
+                              <a href="<?= base_url("admin/consent_letter/image_view/" . urlencrypt($row['id'])); ?>" title="Download Form" onclick="return confirm('Are you want to show image ?')" class="btn btn-sec">Image View</a>
                            </td>
                         </tr>
                   <?php
