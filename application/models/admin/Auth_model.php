@@ -350,13 +350,13 @@ class Auth_model extends CI_Model{
     	$query = $this->db->get('ci_admin');
 
     	$count_row = $query->num_rows();
-
+//print_r($count_row);die;
 		if ($count_row > 0) {
 		//if count row return any row; that means you have already this email address in the database. so you must set false in this sense.
-				return true; // here I change TRUE to false.
+				return 'exit'; // here I change TRUE to false.
 			} else {
 				// doesn't return any row means database doesn't have this email
-				return false; // And here false to TRUE
+				return '0'; // And here false to TRUE
 			}
 	}
 
