@@ -591,7 +591,6 @@ public function consent_add_1() {
     }
     
      public function preview_form($id) {
-
         $data['id'] = ($id);
         $data['admin'] = $this->Certificate_model->get_registration_data1(urldecrypt($id))  ;
         // print_r( $data['admin'] ); die;
@@ -601,6 +600,25 @@ public function consent_add_1() {
         $this->load->view('admin/consent_letter/consent_letter_preview', $data);
         // $this->load->view('admin/includes/_footer');
     }
+
+    public function image_view($id)
+    {
+        $decrypted_id = urldecrypt($id);
+        $data['id'] = $id;
+        $data['admin'] = $this->Certificate_model->get_image_view(urldecrypt($id));
+
+        // Filter only image file names
+        $imageKeys = ['fileName1', 'fileName2', 'fileName3', 'fileName4', 'fileName5', 'fileName6'];
+        $data['images'] = array_filter($data['admin'], function($key) use ($imageKeys) {
+            return in_array($key, $imageKeys);
+        }, ARRAY_FILTER_USE_KEY);
+
+        $this->load->view('admin/includes/_header');
+        $this->load->view('admin/consent_letter/consent_letter_image_view', $data);
+        $this->load->view('admin/includes/_footer');
+    }
+
+
 	
 	
 	

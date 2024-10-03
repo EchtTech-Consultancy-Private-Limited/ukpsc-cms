@@ -317,6 +317,7 @@ class Auth extends MY_Controller {
 
 		public function register(){
        
+			// die('hello');
 			if($this->input->post('submit')){	
 				
 				// for google recaptcha
