@@ -12,21 +12,126 @@
 
     .gallery img {
         width: 100%;
-        height: auto;
+        /* height: auto; */
     }
 
     .desc {
         padding: 15px;
         text-align: center;
     }
+    .toZoom {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toZoom:hover {opacity: 0.7;}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Add Animation */
+.modal-content {  
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform: scale(0.1)} 
+  to {transform: scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
 </style>
-<div class="row">
-    <?php foreach($images as $image): ?>
-        <div class="gallery">
-            <a target="_blank" href="<?= base_url('uploads/' . $image); ?>">
-                <img src="<?= base_url('uploads/consent_data/' . $image); ?>" alt="Image" />
-            </a>
-            <!-- <div class="desc">Description for <?= $image; ?></div> -->
+<div class="content-wrapper">
+    <section class="content">
+    <div class="card">
+            <div class="card-header border-0">
+                <div class="d-inline-block">
+                    <h3 class="card-title">
+                        <i class="fa fa-list"></i>
+                        <?php if($_SESSION['admin_role_id']==5){?>
+
+                        Registered College/School Image.&nbsp;(पंजीकृत कॉलेज / स्कूल |)
+                        <?php }else{?>
+                          School/Center/College Image.&nbsp;(स्कूल/केंद्र/कॉलेज की जानकारी)
+                        <?php }?>
+                    </h3>
+
+                </div><br><br><br>
+                <div class="row">
+                    <?php foreach($images as $image): ?>
+                        <div class="gallery">
+                            <img class="toZoom" src="<?= base_url('uploads/consent_data/' . $image); ?>" width="200">
+                                <!-- The Modal -->
+                                <div class="idMyModal modal">
+                                <span class="close">&times;</span>
+                                <img class="modal-content">
+                            </div>
+                            <!-- <div class="desc">Description for <?= $image; ?></div> -->
+                        </div>
+                    <?php endforeach; ?>
+                </div>
         </div>
-    <?php endforeach; ?>
+    </section>
 </div>
+<script>
+    const modal = document.getElementsByClassName('idMyModal');
+const img = document.getElementsByClassName('toZoom');
+const modalImg = document.getElementsByClassName('modal-content');
+for ( let i = 0; i < img.length; i++ ) {
+  img[i].onclick = function () {
+    modal[i].style.display = "block";
+    modalImg[i].src = this.src;
+  }
+}
+
+var span = document.getElementsByClassName("close");
+for ( let i = 0; i < span.length; i++ ) {
+  span[i].onclick = function() { 
+    modal[i].style.display = "none";
+  }
+}
+</script>
