@@ -63,8 +63,8 @@
 /* The Close Button */
 .close {
   position: absolute;
-  top: 15px;
-  right: 35px;
+  top: 11%;
+  right: 25%;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
@@ -78,6 +78,13 @@
   cursor: pointer;
 }
 
+
+@media (max-width: 1399px) and (min-width: 1024px) {
+  .modal-content {
+    max-width:550px
+  }
+  }
+
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
   .modal-content {
@@ -87,8 +94,8 @@
 </style>
 <div class="content-wrapper">
     <section class="content">
-    <div class="card">
-            <div class="card-header border-0">
+    <div class="card position-static">
+            <div class="card-header border-0 position-static">
                 <div class="d-inline-block">
                     <h3 class="card-title">
                         <i class="fa fa-list"></i>
@@ -118,7 +125,7 @@
     </section>
 </div>
 <script>
-    const modal = document.getElementsByClassName('idMyModal');
+const modal = document.getElementsByClassName('idMyModal');
 const img = document.getElementsByClassName('toZoom');
 const modalImg = document.getElementsByClassName('modal-content');
 for ( let i = 0; i < img.length; i++ ) {
