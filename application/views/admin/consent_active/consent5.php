@@ -165,10 +165,10 @@
                                                             <th>Exam shift</th>
                                                             <th>Exam Time </th>
                                                             <?php if (count($sub_info) != 1) { ?>
-                                                                <th>Options</th>
+                                                                <th>Consent For Exam on Respective Date</th>
                                                             <?php }else{
                                                                 ?>
-                                                                <th>Option</th>
+                                                                <th>Consent For Exam on Respective Date</th>
                                                                 <?php
                                                             } ?>
                                                         </tr>
@@ -570,7 +570,7 @@
         }
         if(Number(totalCount)===Number(no) || Number(totalCount) === count){
             no = no-1;
-           alert("Please select at least one yes option");
+           alert("Please select at least one yes option: Are You Sure that you do not want to conduct exam on respective date");
            $('#yes'+autoId).prop('checked',true);
            $('#no'+autoId).prop('checked',false);    
           
