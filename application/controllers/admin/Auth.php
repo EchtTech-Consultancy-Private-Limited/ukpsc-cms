@@ -121,105 +121,119 @@ class Auth extends MY_Controller {
 		}	
 
 		//-------------------------------------------------------------------------
-	public function login(){
-		  $error_type = false;
-		if($this->input->post('submit')){
-			$this->form_validation->set_rules('username', 'Username', 'trim|required');
-			$this->form_validation->set_rules('password', 'Password', 'trim|required');
-			if ($this->form_validation->run() == FALSE) {
-				$data = array(
-					'errors' => validation_errors()
-				);
-				$this->session->set_flashdata('error', $data['errors']);
-				redirect(base_url('admin/auth/login'),'refresh');
-			}
-			else {
-				$data = array(
-					'username' => $this->input->post('username'),
-					'password' => $this->input->post('password')
-				);
-				if(is_numeric($this->input->post('username'))  ){
-					$type = 'school_registration_number';
-				}else{
-					$type = 'username';
-				}
-			
-				$result = $this->auth_model->login($data,$type);
-				
-			
-				if($result){
-					if($result['is_verify'] == 0){
-						$this->session->set_flashdata('error', 'Please verify your email address!');
-						redirect(base_url('admin/auth/login'));
-						exit();
+		public function login(){
+			$error_type = false;
+			if ($this->input->post('submit')) {
+				$this->form_validation->set_rules('username', 'Username', 'trim|required');
+				$this->form_validation->set_rules('password', 'Password', 'trim|required');
+				if ($this->form_validation->run() == FALSE) {
+					$data = array(
+						'errors' => validation_errors()
+					);
+					$this->session->set_flashdata('error', $data['errors']);
+					redirect(base_url('admin/auth/login'), 'refresh');
+				} else {
+					$data = array(
+						'username' => $this->input->post('username'),
+						'password' => $this->input->post('password')
+					);
+					if (is_numeric($this->input->post('username'))) {
+						$type = 'school_registration_number';
+					} else {
+						$type = 'username';
 					}
-					if($result['is_active'] == 0){
-						$this->session->set_flashdata('error', 'Account is disabled as per as your request !');
-						redirect(base_url('admin/auth/login'));
-						exit();
-					}
-					if($result['is_admin'] == 1){
-                                            
-						$admin_data = array(
-							'admin_id' => $result['admin_id'],
-							'username' => $result['username'],
-                            'fullname' => $result['firstname']." ".$result['middlename']." ".$result['lastname'],
-							'admin_role_id' => $result['admin_role_id'],
-							'email' => $result['email'],
-							'mobile_no' => $result['pri_mobile'],
-							'admin_role' => $result['admin_role_title'],
-                            'state_id' => $result['state_id'],
-                            'district_id' => $result['district_id'],
-							'is_supper' => $result['is_supper'],
-                            'last_login' => $result['last_login'],
-                            'last_ip' => $result['last_ip'],   
-							'is_admin_login' => TRUE
-						);		
-						
-						$this->session->set_userdata($admin_data);
-						$this->rbac->set_access_in_session(); // set access in session
-						$admin_id = $this->session->userdata['admin_id'];
-						$admin_role_id = $this->session->userdata['admin_role_id'];
-						if($admin_role_id == 6){
-                        $data = $this->db->select('*')->from('ci_exam_registration')->where('admin_id',$admin_id)->get()->result_array();
-                        $match = count($data);
-                        if($match != 0 ){
-			             redirect(base_url('admin/dashboard'), 'refresh');
-                        }else{
-                        	redirect(base_url('admin/step1'), 'refresh');
-                        }
-                    }else if($admin_role_id == 5){
-                    	redirect(base_url('admin/dashboard'), 'refresh');
-                    	//  redirect(base_url('admin/consent_letter/consent_list'), 'refresh');
-                    	 
-                    }else{
-					
-                    	redirect(base_url('admin/dashboard'), 'refresh');
-                    } 
+		
+					$result = $this->auth_model->login($data, $type);					
+					if ($result) {						
+		
+						if ($result['is_verify'] == 0) {
+							$this->session->set_flashdata('error', 'Please verify your email address!');
+							redirect(base_url('admin/auth/login'));
+							exit();
 						}
-						
-					}
-					else{
+						if ($result['is_active'] == 0) {
+							$this->session->set_flashdata('error', 'Account is disabled as per your request!');
+							redirect(base_url('admin/auth/login'));
+							exit();
+						}
+		
+						if ($result['is_admin'] == 1) {
+							$admin_data = array(
+								'admin_id' => $result['admin_id'],
+								'username' => $result['username'],
+								'fullname' => $result['firstname'] . " " . $result['middlename'] . " " . $result['lastname'],
+								'admin_role_id' => $result['admin_role_id'],
+								'email' => $result['email'],
+								'mobile_no' => $result['pri_mobile'],
+								'admin_role' => $result['admin_role_title'],
+								'state_id' => $result['state_id'],
+								'district_id' => $result['district_id'],
+								'is_supper' => $result['is_supper'],
+								'last_login' => $result['last_login'],
+								'last_ip' => $result['last_ip'],
+								'is_admin_login' => TRUE
+							);
+		
+							$this->session->set_userdata($admin_data);
+							$this->rbac->set_access_in_session(); // Set access in session
+		
+							$admin_role_id = $this->session->userdata['admin_role_id'];
+							$admin_id = $this->session->userdata['admin_id'];
+							// Check if any important fields are empty or null
+							$required_fields = [
+								'username',
+								'school_registration_number',
+								'school_name',
+								'address',
+								'principal_name',
+								'whats_num',
+								'pri_mobile',
+								'email_id',
+								'firstname',
+								'middlename',
+								'lastname',
+								// 'state_id',
+								// 'district_id',
+							];
+							foreach ($required_fields as $field) {
+								if (!isset($result[$field]) || empty($result[$field])) {
+									$this->session->set_flashdata('error', 'Please complete your profile before proceeding.');
+									redirect(base_url('admin/profile/'), 'refresh');
+									exit();
+								}
+							}
+							if ($admin_role_id == 6) {
+								$data = $this->db->select('*')->from('ci_exam_registration')->where('admin_id', $admin_id)->get()->result_array();
+								$match = count($data);
+								if ($match != 0) {
+									redirect(base_url('admin/dashboard'), 'refresh');
+								} else {
+									redirect(base_url('admin/step1'), 'refresh');
+								}
+							} else if ($admin_role_id == 5) {
+								redirect(base_url('admin/dashboard'), 'refresh');
+							} else {
+								redirect(base_url('admin/dashboard'), 'refresh');
+							}
+						}
+					} else {
 						$error_type = true;
-						// echo $error_type; die();
 						$this->session->set_flashdata('errors', 'Invalid Username or Password!');
-						//$this->session->set_flashdata('errors_type', $error_type);
 						redirect(base_url('admin/auth/login'));
 					}
 				}
-			}
-			else{
+			} else {
 				$data['title'] = 'Login';
 				$data['navbar'] = false;
 				$data['sidebar'] = false;
 				$data['footer'] = false;
 				$data['bg_cover'] = true;
-
+		
 				$this->load->view('admin/includes/_header', $data);
 				$this->load->view('admin/auth/login');
 				$this->load->view('admin/includes/_footer', $data);
 			}
-		}	
+		}			
 		
 		
 		// public function register(){
