@@ -78,10 +78,13 @@
             <?php
                if($row['consents_signstamp_status'] != 1){
                ?>
-            
+                   <?php if($row['enddate'] >=date('Y-m-d')){   ?>
                   <a href="<?= base_url("admin/consent_active/consent_add/" . $schoolId).'/'.$row['ref_id']; ?>" title="Apply" rel="<?php echo $row['ref_id'] ?>" class="btn btn-warning">
                      Apply  
                   </a>   
+                  <?php }else { ?>
+                   Date Expired
+                  <?php } ?>
             <?php
                }   
             ?>
