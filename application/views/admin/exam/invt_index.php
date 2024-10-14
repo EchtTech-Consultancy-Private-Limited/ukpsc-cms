@@ -504,7 +504,7 @@
                     success: function(result) {
                         if (result) {
                             $('.loaderWrap').addClass('d-none');
-                            alert("Consent sent sucessfully ");
+                            alert("Consent sent sucessfully");
 
                             window.location.reload();
                         }
@@ -589,10 +589,8 @@
                     $('.loaderWrap').addClass('d-none');
                     alert("Consent sent sucessfully ");
                     this.checked = false;
-
                     window.location.reload();
                 }
-
             }
         });
     }
