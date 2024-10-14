@@ -80,23 +80,20 @@
 
                         <?php
                         $candidateNo = getCandidateNumbers($row['school_id'], $row['id']);
-
-
                         ?>
 
                         <?php foreach ($no_candidate as $key => $value) {
-
                         ?>
                             <td>
                                 <?php $option = checkOption($row['id'], $row['school_id'], date('d-m-Y', strtotime($date_exam[$key])), $shft_exam[$key]);
                                 if ($option == 'no') {
                                 ?>
-                                    <input type="text"  class="form-control  validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>">
+                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo ($exmin_ceterOption[$key] == 'Yes') ? '' : 'readonly'; ?> >
 
                                 <?php } else {
                                 ?>
 
-                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>">
+                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo ($exmin_ceterOption[$key] == 'Yes') ? '' : 'readonly'; ?> >
 
                                 <?php
 

@@ -39,7 +39,6 @@ class Allocation_admin extends MY_Controller {
     $admin_id = $this->session->userdata('admin_id'); 
  
     $data['info'] = $this->Allocation_Model->get_data_for_allocation($id);
-   
     $data['date_exam'] = isset($data['info'][0]['date_exam']) ? explode(",",$data['info'][0]['date_exam']) : [];
     $data['shft_exam'] = isset($data['info'][0]['shft_exam']) ? explode(",",$data['info'][0]['shft_exam']) : [];
     $data['no_candidate'] = isset($data['info'][0]['no_candidate']) ? explode(",",$data['info'][0]['no_candidate']) : [];
@@ -53,7 +52,8 @@ class Allocation_admin extends MY_Controller {
     //         array_push($arrData,isset($data['info'][0]['date_exam']) ? explode(",",$data['info'][0]['date_exam']) : []);
     //     }
     // }
-     //print_r($data);die;
+    // echo '<pre>';
+    //  print_r($data);die;
 
     $this->load->view('admin/allocation/allocation_list', $data);
     }  
