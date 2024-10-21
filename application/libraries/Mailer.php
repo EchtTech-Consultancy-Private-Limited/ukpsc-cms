@@ -171,8 +171,8 @@ class Mailer
                 $content = str_replace('{FULLNAME}',$data['fullname'],$content);
 
 
-
-                $content = str_replace('{RESET_LINK}',$data['reset_link'],$content);
+                $content = str_replace('{RESET_LINK}','Reset Password: <a href="'.$data['reset_link'].'" style="text-decoration: underline;color: #3F51B5;">Click Here</a>',$content);
+                // $content = str_replace('{RESET_LINK}',$data['reset_link'],$content);
 
 
 
