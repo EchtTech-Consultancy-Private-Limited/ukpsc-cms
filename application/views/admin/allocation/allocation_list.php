@@ -36,16 +36,14 @@
             </thead>
             <tbody>
 
-                <?php
-
+                <?php                
                 $i = 1;
                 foreach ($info as $row) :
                     $admin_role_id = $this->session->userdata('admin_role_id');
                     $admin_id = $this->session->userdata('admin_id');
                     //   if (($admin_role_id != 6) && ((in_array($row['file_movement'], array(1))) )) {
                     //       continue;
-                    // }   
-
+                    // }
                 ?>
 
                     <tr>
@@ -88,12 +86,12 @@
                                 <?php $option = checkOption($row['id'], $row['school_id'], date('d-m-Y', strtotime($date_exam[$key])), $shft_exam[$key]);
                                 if ($option == 'no') {
                                 ?>
-                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo ($exmin_ceterOption[$key] == 'Yes') ? '' : 'readonly'; ?> >
+                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo (explode(',', $row['exmin_ceter_option'])[$key] == 'Yes') ? '' : 'readonly'; ?> >
 
                                 <?php } else {
                                 ?>
 
-                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo ($exmin_ceterOption[$key] == 'Yes') ? '' : 'readonly'; ?> >
+                                    <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo (explode(',', $row['exmin_ceter_option'])[$key] == 'Yes') ? '' : 'readonly'; ?> >
                                 <?php
 
                                 } ?>

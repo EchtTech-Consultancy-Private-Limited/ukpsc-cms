@@ -114,7 +114,7 @@ class Allocation_Model extends CI_Model {
     $this->db->from('ci_exam_invitation');
     $this->db->where('create_letter_status','1');
     $this->db->where('created_by',$admin_id);
-    $this->db->order_by('id','asc');
+    $this->db->order_by('id','desc');
     $q = $this->db->get()->result_array();
     return $q;
 }
