@@ -94,7 +94,6 @@
                                 ?>
 
                                     <input type="text" class="form-control validateClass<?php echo $i; ?> no_candi<?php echo $i; ?>" onkeypress="return onlyNumberKey(event)" id="candidate_value_school_id_new<?php echo $i . $key ?>" value="<?php echo isset($candidateNo[$key]) ? $candidateNo[$key] : '' ?>" <?php echo ($exmin_ceterOption[$key] == 'Yes') ? '' : 'readonly'; ?> >
-
                                 <?php
 
                                 } ?>
