@@ -501,10 +501,9 @@ public function consent_add_1() {
                     'invt_recieved' =>2,
                     'created_at' => date('d-m-Y : h:m:s'),
                     'created_by' => $this->session->userdata('admin_id'),                                     
-                ];
+                ];               
                 
                 $data = $this->security->xss_clean($data);
-
                 $admin_id = $this->session->userdata['admin_id'];
                 $this->db->select('*');
                 $this->db->where('admin_id', $admin_id);
@@ -606,7 +605,9 @@ public function consent_add_1() {
         $decrypted_id = urldecrypt($id);
         $data['id'] = $id;
         $data['admin'] = $this->Certificate_model->get_image_view(urldecrypt($id));
-
+        // echo '<pre>';
+        // print_r($data['admin']);
+        // die(urldecrypt($id));
         // Filter only image file names
         $imageKeys = ['fileName1', 'fileName2', 'fileName3', 'fileName4', 'fileName5', 'fileName6'];
         $data['images'] = array_filter($data['admin'], function($key) use ($imageKeys) {

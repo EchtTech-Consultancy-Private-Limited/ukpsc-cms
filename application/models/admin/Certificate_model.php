@@ -130,8 +130,8 @@ class Certificate_model extends CI_Model {
     }
 
     public function get_image_view($id) {
-        $query = $this->db->get_where('ci_exam_according_to_school',
-                array('ref_id' => $id));
+        $query = $this->db->get_where('ci_exam_registration',
+                array('id' => $id));
         return $result = $query->row_array();
     }    
 
