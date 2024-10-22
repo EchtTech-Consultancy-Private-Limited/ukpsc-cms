@@ -179,7 +179,7 @@ class Auth extends MY_Controller {
 		
 							$admin_role_id = $this->session->userdata['admin_role_id'];
 							$admin_id = $this->session->userdata['admin_id'];
-							// Check if any important fields are empty or null
+							// Check if any important fields are empty or null							
 							$required_fields = [
 								'username',
 								'school_registration_number',
@@ -197,6 +197,9 @@ class Auth extends MY_Controller {
 							];
 							foreach ($required_fields as $field) {
 								if (!isset($result[$field]) || empty($result[$field])) {
+									if ($admin_role_id == 6) {
+										redirect(base_url('admin/step1'), 'refresh');
+									}
 									$this->session->set_flashdata('error', 'Please complete your profile before proceeding.');
 									redirect(base_url('admin/profile/'), 'refresh');
 									exit();
